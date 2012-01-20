@@ -1,0 +1,16 @@
+{
+	// The port on which to run the honstreams server
+	"port": 1337,
+
+	// MySQL information
+	"mysql": {
+		"host": "127.0.0.1",
+		"port": 3306,
+		"database": "honsdb",
+		"username": "root",
+		"password": "12345",
+
+		// If true, all executed SQL will be printed to stdout
+		"logging": false
+	}
+}
