@@ -1,0 +1,14 @@
+{
+	"name": "honstreams.server",
+	"version": "0.0.0",
+	"author": "Tomas E. Sandven <tomas191191@gmail.com>",
+	"description": "The server side of honstreams.com",
+
+	"dependencies": {
+		"express": "2.5.x",
+		"sequelize": "1.3.x",
+		"forever": "0.8.x",
+		"async": "0.1.x"
+	}
+}
+
