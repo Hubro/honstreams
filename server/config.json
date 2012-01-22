@@ -12,5 +12,19 @@
 
 		// If true, all executed SQL will be printed to stdout
 		"logging": false
+	},
+
+	// jtv module settings
+	"jtv": {
+		"key": "iV2iBO7CtznUwu5cxg7g",
+		"secret": "agUJ0JkLNieJm7jfwjbaE5FiWu43oQj5BqGkD84wSpc",
+
+		"api_root": "http://api.justin.tv",
+		"stream_list": "/stream/list.json?channel=%s",
+		"channel_show": "/channel/show/%s.json",
+
+		// OAuth stuff
+		"req_token_url": "http://api.justin.tv/oauth/request_token",
+		"acc_token_url": "http://api.justin.tv/oauth/access_token"
 	}
 }

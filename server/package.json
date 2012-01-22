@@ -7,8 +7,10 @@
 	"dependencies": {
 		"express": "2.5.x",
 		"sequelize": "1.3.x",
-		"forever": "0.8.x",
-		"async": "0.1.x"
+		"oauth": "0.9.x",
+		"async": "0.1.x",
+		"cli": "0.4.x",
+		"colors": "0.6.x",
+		"prompt": "0.1.x"
 	}
 }
-
