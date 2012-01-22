@@ -29,24 +29,21 @@ apiRequest = (path, callback)->
 
 # Checks if the input stream name is live. Passes true of false to the callback,
 # representing online or offline respectively. Can throw exceptions.
-fetchChannelStatus = exports.fetchChannelStatus = (channel, callback)->
+fetchStreamStatus = exports.fetchStreamStatus = (channel, callback)->
 	request = util.format jc.stream_list, channel
 
 	apiRequest request, (result)->
-		# If the response is not empty, the stream is live
-		if result.length > 0 and result[0]['meta_game'] == 'Heroes of Newerth'
-			return callback true
-		
-		# Otherwise it's offline
-		callback false
+		# Return false on empty response
+		if result.length < 1
+			callback false
+		# Return the fetched object
+		else callback result[0]
 
-if !module.parent
-	if process.argv.length < 3
-		console.error 'No channel-name given'
-		process.exit 1
 
-	fetchChannelStatus process.argv[2], (status)->
-		if status
-			console.log process.argv[2] + ' is live!!!'
-		else
-			console.log process.argv[2] + ' is offline.'
+
+###########################
+##### STANDALONE CODE #####
+###########################
+
+# Execute if module is run directly
+# if !module.parent
