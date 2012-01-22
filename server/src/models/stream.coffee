@@ -96,12 +96,6 @@ Stream_fields =
 		allowNull: false
 		defaultValue: 0
 	
-	# The amount of clicks this stream has received so far
-	clicks:
-		type: sequelize.INTEGER
-		allowNull: false
-		defaultValue: 0
-
 # Stream model attributes
 Stream_attr =
 	classMethods:
