@@ -180,7 +180,13 @@ Stream_attr =
 
 	# Methods on the Stream instance
 	instanceMethods:
-		null
+		toJSON: ->
+			rawstream = {};
+
+			for attr in this.attributes
+				rawstream[attr] = this[attr]
+			
+			return rawstream
 
 # Create the Stream model
 Stream = honsdb.define 'Stream', Stream_fields, Stream_attr
