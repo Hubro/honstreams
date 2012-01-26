@@ -36,8 +36,8 @@ fetchStreamStatus = exports.fetchStreamStatus = (channel, callback)->
 		# Return the fetched object
 		else callback result[0]
 
-# Checks if the input stream name is live. Passes true of false to the callback,
-# representing online or offline respectively. Can throw exceptions.
+# Fetches all live streams featuring Heroes of Newerth and passes them to the
+# callback
 fetchLiveStreams = exports.fetchLiveStreams = (callback)->
 	request = "/stream/list.json?meta_game=Heroes%20of%20Newerth"
 
