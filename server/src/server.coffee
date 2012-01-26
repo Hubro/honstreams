@@ -3,15 +3,17 @@
 express = require 'express'
 fs = require 'fs'
 config = require './config'
+serverconfig = require './serverconfig'
+routes = require './routes'
 
 # Create hons server
 hons_server = express.createServer()
 
 # Configure it
-require('./serverconfig').init hons_server
+serverconfig.apply hons_server
 
-hons_server.get '/pow', (req, res)->
-	res.exit('pow');
+# Set up routes
+routes.apply hons_server
 
 # Start server
 hons_server.listen config.port
