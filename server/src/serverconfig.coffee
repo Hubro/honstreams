@@ -12,13 +12,18 @@ development = (server)->
 		dumpExceptions: true
 		showStack: true
 
+# Run this when developing
+production = (server)->
+	server.use express.errorHandler {}
+
 # Export function for setting config
-module.exports.init = (server)->
+module.exports.apply = (server)->
 
 	# Set regular config
-	server.configure ->
-		all server
+	server.configure -> all server
 	
 	# Set development config
-	server.configure 'development', ->
-		development server
+	server.configure 'development', -> development server
+	
+	# Set production config
+	server.configure 'production', -> production server
