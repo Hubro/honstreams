@@ -1,7 +1,7 @@
 
 # Dependencies
 Sequelize = require 'sequelize'
-honsdb = require '../database'
+honsdb = require '../honsdb'
 async = require 'async'
 require 'colors'
 
@@ -17,10 +17,6 @@ Stream_fields =
 		primaryKey: true
 		autoIncrement: true
 	
-	#
-	# Textual stream data
-	#
-	
 	# This is the channel name of the stream, e.g. "thethrill"
 	channel:
 		type: Sequelize.STRING
@@ -28,6 +24,10 @@ Stream_fields =
 		allowNull: false
 		validate:
 			notEmpty: true
+	
+	#
+	# Textual stream data
+	#
 	
 	# This is the displayed name of the stream, e.g. "Phil the Thrill"
 	title:
