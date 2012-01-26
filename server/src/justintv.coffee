@@ -5,9 +5,6 @@ oauth = require 'oauth'
 util = require 'util'
 
 # Locals
-token_received = false
-oauth_token = undefined
-oauth_token_secret = undefined
 jc = config.jtv
 
 # Create an OAuth handle for the justin.tv API
@@ -30,7 +27,7 @@ apiRequest = (path, callback)->
 # Checks if the input stream name is live. Passes true of false to the callback,
 # representing online or offline respectively. Can throw exceptions.
 fetchStreamStatus = exports.fetchStreamStatus = (channel, callback)->
-	request = util.format jc.stream_list, channel
+	request = "/channel/show/#{channel}.json"
 
 	apiRequest request, (result)->
 		# Return false on empty response
@@ -39,11 +36,20 @@ fetchStreamStatus = exports.fetchStreamStatus = (channel, callback)->
 		# Return the fetched object
 		else callback result[0]
 
+# Checks if the input stream name is live. Passes true of false to the callback,
+# representing online or offline respectively. Can throw exceptions.
+fetchLiveStreams = exports.fetchLiveStreams = (callback)->
+	request = "/stream/list.json?meta_game=Heroes%20of%20Newerth"
 
+	apiRequest request, (result)->
+		# Run the callback with the result
+		callback result
 
 ###########################
 ##### STANDALONE CODE #####
 ###########################
 
 # Execute if module is run directly
-# if !module.parent
+if !module.parent
+	fetchLiveStreams (streams)->
+		console.log streams[0]
