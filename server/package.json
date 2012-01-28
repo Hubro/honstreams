@@ -9,8 +9,7 @@
 		"sequelize": "1.3.x",
 		"oauth": "0.9.x",
 		"async": "0.1.x",
-		"cli": "0.4.x",
-		"colors": "0.6.x",
-		"prompt": "0.1.x"
+		"optimist": "0.3.x",
+		"colors": "0.6.x"
 	}
 }

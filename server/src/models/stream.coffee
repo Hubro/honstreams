@@ -3,6 +3,7 @@
 Sequelize = require 'sequelize'
 honsdb = require '../honsdb'
 async = require 'async'
+StreamData = require './streamdata'
 require 'colors'
 
 # Declare Stream's fields
@@ -91,7 +92,7 @@ Stream_fields =
 	# Records when a stream was live last
 	live_at:
 		type: Sequelize.DATE
-		allowNull: true
+		allowNull: false
 	
 # Stream model attributes
 Stream_attr =
@@ -103,28 +104,15 @@ Stream_attr =
 		# Perform a full update of the Stream database
 		updateAllFromRaw: (rawdata)->
 			# First set all streams to offline
-			Stream.all()
-			.success (streams)->
-				# Use a chainer to set all streams to offline before updating
-				chainer = new Sequelize.Utils.QueryChainer
+			honsdb.query('UPDATE Streams SET live=0')
+			.success ->
+				console.log 'All streams set to offline'.yellow
 
-				for stream in streams
-					chainer.add stream.updateAttributes live: false
-				
-				chainer
-				.run()
-				.success ->
-					console.log 'All streams set to offline'.yellow
-
-					# Update each stream
-					for rawstream in rawdata
-						Stream.updateFromRaw rawstream
-				.error (e)->
-					console.error 'Couldn\'t set all streams to offline:'.red
-					console.error e.message.red
-
+				# Update each stream
+				for rawstream in rawdata
+					Stream.updateFromRaw rawstream
 			.error (e)->
-				console.error 'Couldn\'t fetch streams:'.red
+				console.error 'Couldn\'t set all streams to offline:'.red
 				console.error e.message.red
 			
 		# Update the content of a single Stream from the input data
@@ -187,58 +175,12 @@ Stream_attr =
 				rawstream[attr] = this[attr]
 			
 			return rawstream
+		
+		getStreamData: (callback)->
+			return
 
 # Create the Stream model
 Stream = honsdb.define 'Stream', Stream_fields, Stream_attr
 
 # Export the module
 module.exports = Stream
-
-
-
-###########################
-##### Standalone code #####
-###########################
-
-# Updates the stream of the input channel name
-update_streams = ->
-	jtv = require '../jtv'
-
-	jtv.fetchLiveStreams (streams)->
-		Stream.updateAllFromRaw streams
-
-# Synchronizes the Streams table with this model
-syncdb = ->
-	require 'colors'
-
-	Stream.sync(force: true)
-	.success ->
-		console.log 'Stream table synchronized'.green
-	.error (msg)->
-		console.error 'Failed to synchonize table:'.red
-		console.error msg
-
-# Execute
-if !module.parent
-	# Shift out the call path from argv
-	process.argv.shift()
-
-	# require cli and enable some plugins
-	cli = require 'cli'
-	cli.enable 'version', 'status'
-
-	# Define allowed options and commands
-	cli_options = null
-
-	cli_commands =
-		update: 'Updates the live streams'
-		syncdb: 'Synchronize the Streams table with this model (Will drop data)'
-	
-	# Parse the command line input
-	cli.parse cli_options, cli_commands
-
-	# Create new stream
-	switch cli.command
-		when 'create' then create_stream()
-		when 'update' then update_streams()
-		when 'syncdb' then syncdb()

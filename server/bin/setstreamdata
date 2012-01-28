@@ -1,0 +1,60 @@
+#!/usr/bin/env coffee
+
+###
+This scripts adds a StreamData object
+###
+
+# Dependencies
+optimist = require 'optimist'
+Stream = require '../src/models/stream'
+StreamData = require '../src/models/streamdata'
+
+# Set usage string
+parser = optimist.usage('Usage: setstreamdata <channel> [options]')
+
+# Input channel argument
+parser.demand 1
+
+# Input 'sponsored'
+parser.options 'sponsored'
+	alias: 's'
+	describe: 'If this stream is sponsored by Honstreams'
+	boolean: true
+
+# Help
+parser.options 'help'
+	alias: 'h'
+	describe: 'Display this help message'
+
+# Parse the Input
+argv = parser.argv
+
+# Was there a plee for help?
+if argv.help
+	parser.showHelp()
+	process.exit 0
+
+channel = argv._[0]
+sponsored = argv.sponsored
+
+# Check if this StreamData already exists
+StreamData.find(where: channel: channel)
+.success (sd)->
+	savesd sd
+.error (e)->
+	console.log e.message.red
+
+savesd = (sd)->
+	# Create and save the new StreamData
+	if !sd then sd = StreamData.build()
+	
+	sd.sponsored = Boolean(argv.sponsored)
+	sd.setStream channel
+
+	sd.save()
+	.success ->
+		console.log "Data about '#{argv._[0]}' saved with:".green
+		console.log 'sponsored: '.green + String(sponsored).green
+	.error (e)->
+		console.log 'Save failed:'.red
+		console.log e.message.red
