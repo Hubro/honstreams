@@ -8,6 +8,6 @@
 	
 	"libs": [
 		"./vendor/jquery.min.js",
-		"./vendor/jtv_api.js"
+		"./vendor/showdown.js"
 	]
 }
