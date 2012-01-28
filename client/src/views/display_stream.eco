@@ -1,0 +1,17 @@
+<div class="embed">
+	<object type="application/x-shockwave-flash" id="live_embed_player_flash" 
+	data="http://www.justin.tv/widgets/live_embed_player.swf?channel=<%=@channel%>&auto_play=true" 
+	bgcolor="#000000">
+		<param name="allowFullScreen" value="true" />
+		<param name="allowScriptAccess" value="always" />
+		<param name="allowNetworking" value="all" />
+		<param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" />
+		<param name="flashvars" value="channel=<%=@channel%>&auto_play=true" />
+	</object>
+</div>
+
+<div class="chat">
+	<iframe id="chat_embed" frameborder="0" scrolling="no" 
+		src="http://www.justin.tv/chat/embed?channel=<%=@channel%>&default_chat=jtv">
+	</iframe>
+</div>

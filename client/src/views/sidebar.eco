@@ -1,0 +1,12 @@
+<div class="header"></div>
+
+<div class="streams">
+	<% for stream, i in @streams: %>
+		<div class="stream">
+			<input type="hidden" name="index" value="<%= i %>" />
+			<div class="image" style="background-image: url('<%= stream.screen_cap_small %>');"></div>
+			<span class="title"><%= stream.title %></span>
+			<span class="viewers"><%= stream.viewers %></span>
+		</div>
+	<% end %>
+</div>

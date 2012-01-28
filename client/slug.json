@@ -1,0 +1,13 @@
+{
+	"main": "./src/index",
+	"css": "./css/index",
+	
+	"public": "./public",
+	
+	"paths": ["./src"],
+	
+	"libs": [
+		"./vendor/jquery.min.js",
+		"./vendor/jtv_api.js"
+	]
+}
