@@ -5,20 +5,34 @@
 
 <div class="streams-info">
 	<div class="refresh-countdown">
-		Refresh timer: <span>X</span>
+		Refresh timer: <span>60</span>
 	</div>
 	<div class="stream-count">
-		Live streams: <span><%= @streams.length %></span>
+		<% if !@streams: %>
+			No streams live at the moment
+		<% else: %>
+			Live streams: <span><%= @streams.length %></span>
+		<% end %>
 	</div>
 </div>
 
 <div class="streams">
-	<% for stream, i in @streams: %>
-		<div class="stream">
-			<input type="hidden" name="index" value="<%= i %>" />
-			<div class="image" style="background-image: url('<%= stream.screen_cap_small %>');"></div>
-			<span class="title"><%= stream.title %></span>
-			<span class="viewers"><%= stream.viewers %></span>
+	<% if !@streams: %>
+		<div class="message">>
+			Waiting for streams to load...
 		</div>
+	<% else if @streams.length == 0: %>
+		<div class="message">
+			No streams are live at the moment, sorry
+		</div>
+	<% else: %>
+		<% for stream, i in @streams: %>
+			<div class="stream">
+				<input type="hidden" name="index" value="<%= i %>" />
+				<div class="image" style="background-image: url('<%= stream.screen_cap_small %>');"></div>
+				<span class="title"><%= stream.title %></span>
+				<span class="viewers"><%= stream.viewers %></span>
+			</div>
+		<% end %>
 	<% end %>
 </div>

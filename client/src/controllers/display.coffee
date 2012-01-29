@@ -10,8 +10,10 @@ class Display
 	@create: ->
 		return new Display()
 	
+	# Members
 	defaultPath: ['pages', 'home']
-	
+	streams: null
+
 	# Constructor
 	constructor: ->
 		# Set up the controller
@@ -21,6 +23,10 @@ class Display
 		# Create a markdown parser object
 		converter = new Showdown.converter()
 		@markdown = converter.makeHtml
+
+		# Listen for streams refresh
+		honsapp.addEventListener 'streams-refreshed', (streams)->
+			self.streams = this
 
 	# Decide what to do according to the input path array
 	processPath: (path)->
@@ -35,9 +41,23 @@ class Display
 
 	# Takes a channel name as input and displays it's stream
 	displayStream: (channel)->
-		@el.html display_stream_view
-			channel: channel
-			showChat: true
+		# If the streams haven't been loaded yet, do nothing
+		if !@streams then return
+
+		# Check if the requested stream exists
+		stream = false
+		$.each @streams, (i, e)->
+			if e.channel == channel
+				stream = e
+				return false
+		
+		# If yes, display it. Otherwise alert the user of the error
+		if stream
+			@el.html display_stream_view
+				stream: stream
+				showChat: true
+		else
+			@el.html 'STREAM NOT FOUND'
 	
 	# Takes a page path and displays it using markdown
 	displayPage: (page)->

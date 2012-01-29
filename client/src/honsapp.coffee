@@ -1,6 +1,9 @@
 
 self = module.exports
 
+# Configure jQuery
+$.support.cors = true
+
 # Dependencies
 Sidebar = require 'controllers/sidebar'
 Display = require 'controllers/display'
@@ -9,6 +12,8 @@ dataloader = require 'dataloader'
 hashpath = require 'hashpath'
 
 _events = {}
+_lastUpdated = false
+_first = true
 
 # Function for triggering an event
 triggerEvent = self.triggerEvent = (event, env)->
@@ -21,13 +26,13 @@ triggerEvent = self.triggerEvent = (event, env)->
 			e.call env
 
 # Function for adding a handler for an event
-addEventHandler = self.addEventHandler = (event, cb)->
+addEventListener = self.addEventListener = (event, cb)->
 	# Create the callback array for this event if it doesn't exist
 	if !Boolean(_events[event])
-		_event[event] = []
+		_events[event] = []
 	
 	# Add the callback to it
-	_event[event].push cb
+	_events[event].push cb
 
 # Initiates the honstreams app
 self.init = (selector)->
@@ -43,13 +48,19 @@ self.init = (selector)->
 
 		# Fetch live streams and repeat every minute
 		fetchLiveStreams = ->
+
+			_lastUpdated = new Date()
+
 			dataloader.fetchLiveStreams (streams)->
 				# Sort streams by status
 				streams.sort (a, b)->
 					return -1 if a.viewers > b.viewers
 					return 1
 				
-				sidebar.setStreams streams
+				triggerEvent 'streams-refreshed', streams
+
+				# Run the first hashchange event after all is loaded
+				if _first then $(window).hashchange() and _first = false
 
 		setInterval fetchLiveStreams, 60000
 		fetchLiveStreams()
@@ -63,5 +74,4 @@ self.init = (selector)->
 			# Tell the Display to update it's content
 			display.processPath path
 		
-		# Run the hash change once to initiate the site
-		$(window).hashchange()
+		console.log 'Honstreams app is initiated'
