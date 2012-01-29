@@ -7,8 +7,32 @@
 	bottom 0
 	width sidebar_size
 
+	overflow hidden
+
 	background-color blue
 
+	> .header
+		position relative
+		height 50px
+
+		> .logo
+			width 40px
+			height 40px
+			margin 5px
+
+			background-color black
+			color white
+		
+		> .link
+			position absolute
+			top 15px
+			left 60px
+	
+	> .streams-info
+		height 50px
+
+		background-color red
+			
 	> .streams
 		background-color green
 
@@ -21,17 +45,18 @@
 			overflow hidden
 
 			> .image
-				width 40px
+				width 53px
 				height 40px
+				background-size 100%
 			
 			> .title
 				white-space nowrap
 				position absolute
 				top 3px
-				left 45px
+				left 58px
 
 			> .viewers
 				position absolute
 				bottom 3px
-				left 45px
+				left 58px
 				color black + #555

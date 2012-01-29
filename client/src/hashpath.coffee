@@ -7,7 +7,7 @@ hash = window.location.hash.substr 1
 _change = []
 
 # Add an event to hash changed
-window.addEventListener 'hashchange', ->
+$(window).hashchange ->
 	hash = window.location.hash.substr 1
 	path = parsePath hash
 

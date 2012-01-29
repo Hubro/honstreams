@@ -8,6 +8,7 @@
 	
 	"libs": [
 		"./vendor/jquery.min.js",
+		"./vendor/jquery.hashchange.min.js",
 		"./vendor/showdown.js"
 	]
 }

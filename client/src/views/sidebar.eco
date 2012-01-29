@@ -1,4 +1,16 @@
-<div class="header"></div>
+<div class="header">
+	<div class="logo">HS</div>
+	<div class="link">Home</div>
+</div>
+
+<div class="streams-info">
+	<div class="refresh-countdown">
+		Refresh timer: <span>X</span>
+	</div>
+	<div class="stream-count">
+		Live streams: <span><%= @streams.length %></span>
+	</div>
+</div>
 
 <div class="streams">
 	<% for stream, i in @streams: %>
