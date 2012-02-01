@@ -1,0 +1,82 @@
+option '-p', '--port [PORT]', 'Set the port for testserver'
+option '-m', '--minify', 'Minify output JavaScript'
+
+task 'tree', 'Display project folder in a tree structure', ->
+    {exec} = require 'child_process'
+    exec 'tree -I node_modules', (err, stdout, stderr)-> console.log stdout
+
+task 'testserver', 'Serves the public folder and ' +
+                   'restarts the server on file change', (options)->
+    
+    # Server port
+    port = options.port or= 1338
+
+task 'clean', 'Remove all files and directories made by build', ->
+    {exec} = require 'child_process'
+    try exec 'rm -r honsapp.js honsapp.css lib', {cwd:__dirname}, ->
+        console.log 'Project cleaned'
+
+########################
+### Build the client ###
+########################
+task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
+    fs = require 'fs'
+    util = require 'util'
+    {exec} = require 'child_process'
+
+    build_from_coffee = __dirname + '/src'
+    build_from_styl = __dirname + '/css'
+    build_from_eco = __dirname + '/src/views'
+    build_to_js = __dirname + '/honsapp.js'
+    build_to_css = __dirname + '/honsapp.css'
+    build_to_eco = __dirname + '/lib/views'
+
+    cCoffee = (cb)->
+        console.log "Compiling coffee..."
+        
+        exec 'coffee -co lib ' + build_from_coffee, {cwd: __dirname}, -> cb()
+    
+    cEco = (cb)->
+        console.log "Compiling eco templates..."
+
+        eco = require('eco')
+
+        viewFiles = fs.readdirSync build_from_eco
+
+        # Compile and save all views
+        for viewFile in viewFiles
+            view = fs.readFileSync build_from_eco + '/' + viewFile
+            pre = 'module.exports = ' + eco.precompile view.toString()
+            newname = (build_to_eco + '/' + viewFile).replace '.eco', '.js'
+
+            try fs.mkdirSync build_to_eco
+
+            fs.writeFileSync newname, pre, 'UTF-8'
+
+        cb()
+    
+    stitch = (cb)->
+        console.log "Stitching..."
+        setTimeout cb, 500
+    
+    cStylus = (cb)->
+        console.log "Compiling stylus..."
+
+        stylus = require 'stylus'
+        indexStyl = fs.readFileSync build_from_styl + '/' + 'index.styl'
+
+        # Render css and write file
+        stylus.render indexStyl.toString(), {paths: [build_from_styl]}, 
+            (err, css)->
+                throw err if err
+                fs.writeFileSync build_to_css, css, 'UTF-8'
+
+                cb()
+
+    ### Perform the build ###
+    exec 'rm -r lib honsapp.js honsapp.css', {cwd:__dirname}, ->
+        try fs.mkdirSync __dirname + '/lib'
+
+        cCoffee -> cEco -> stitch -> cStylus ->
+            console.log "Built to honsapp.js and honsapp.css"
+            console.log "JS was minified" is options.minify

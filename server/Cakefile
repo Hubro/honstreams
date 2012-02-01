@@ -5,7 +5,8 @@ task 'tree', 'Show a tree of the project folder', ->
         console.log stdout
 
 task 'devserver', 'Run the server using nodemon', ->
-    nodemon = spawn 'nodemon', ['-w', './', '-x', 'coffee', 'src/server.coffee'],
+    nodemon = spawn 'nodemon',
+        ['-w', './', '-x', 'coffee', 'src/server.coffee'],
         cwd: __dirname
     
     nodemon.stdout.on 'data', (data)->
@@ -13,3 +14,12 @@ task 'devserver', 'Run the server using nodemon', ->
 
     nodemon.on 'exit', (code)->
         console.log "Nodemon exited with code #{code}"
+
+task 'build', 'Builds the project into JavaSript (./lib)', ->
+    console.log 'Building...'
+    exec 'coffee -co lib src', (err, stdout, stderr)->
+        if stderr
+            console.error stderr
+        else
+            console.log stdout
+            console.log 'Project built to ./lib'
