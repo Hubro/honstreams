@@ -1,0 +1,15 @@
+{exec, spawn} = require 'child_process'
+
+task 'tree', 'Show a tree of the project folder', ->
+    exec 'tree -I node_modules', (err, stdout, stderr)->
+        console.log stdout
+
+task 'devserver', 'Run the server using nodemon', ->
+    nodemon = spawn 'nodemon', ['-w', './', '-x', 'coffee', 'src/server.coffee'],
+        cwd: __dirname
+    
+    nodemon.stdout.on 'data', (data)->
+        console.log data.toString()
+
+    nodemon.on 'exit', (code)->
+        console.log "Nodemon exited with code #{code}"
