@@ -32,7 +32,10 @@ class Sidebar
 			self.setStreams this
 		
 		@render()
-	
+
+		$(window).resize -> 
+			$('#sidebar_streams_container .dragger', @el).css('top', '0px');
+
 	# Function for setting the streams
 	setStreams: (streams)->
 		@streams = streams
@@ -61,6 +64,12 @@ class Sidebar
 		
 		@el_refresh_countdown = 
 			$('.streams-info > .refresh-countdown span', @el)
-
+		
+		@scrollbarSetup();
+	
+	scrollbarSetup: ->
+		if($('#sidebar_streams_container', @el).length > 0)
+			$('#sidebar_streams_container', @el).mCustomScrollbar('vertical', 
+				100, 'easeOutCirc', 0.1, 'auto', 'yes', 'no', 10);
 
 module.exports = Sidebar

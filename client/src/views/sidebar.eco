@@ -26,20 +26,33 @@
 			No streams are live at the moment, sorry
 		</div>
 	<% else: %>
-		<% for stream, i in @streams: %>
-			<div class="stream">
-				<input type="hidden" name="index" value="<%= i %>" />
-				<div class="image" style="background-image: url('<%= stream.screen_cap_small %>');"></div>
-				<div class="title"><%= stream.title %></div>
-				<div class="viewers">
-					<%= stream.viewers %>
-					<% if stream.viewers == 1: %>
-						viewer
-					<% else: %>
-						viewers
-					<% end %>
+		<!-- Scrollbar tags -->
+		<div id="sidebar_streams_container">
+			<div class="customScrollBox">
+				<div class="container">
+					<div class="content">
+
+						<!-- Sidebar content -->
+						<% for stream, i in @streams: %>
+							<div class="stream">
+								<input type="hidden" name="index" value="<%= i %>" />
+								<div class="image" style="background-image: url('<%= stream.screen_cap_small %>');"></div>
+								<div class="title"><%= stream.title %></div>
+								<div class="viewers">
+									<%= stream.viewers %>
+									<% if stream.viewers == 1: %>
+										viewer
+									<% else: %>
+										viewers
+									<% end %>
+								</div>
+							</div>
+						<% end %>
+
+					</div>
 				</div>
 			</div>
-		<% end %>
+			<div class="dragger_container"><div class="dragger"></div></div>
+		</div>
 	<% end %>
 </div>
