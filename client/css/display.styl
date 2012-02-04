@@ -31,6 +31,48 @@
 
 		background-color violet
 
+		> .channel-title, > .stream-title
+			margin 10px
+		
+		> .viewers
+			margin 10px
+
+			position absolute
+			top 0
+			right 0
+			text-align right
+		
+			> span
+				font-weight bold
+		
+		> .featured
+			margin 10px
+			position absolute
+			top 48px
+			right 0
+		
+		> .toolbar
+			button_height = 30px
+			button_padding = 8px
+
+			position absolute
+			bottom 5px
+			left 5px
+			height button_height
+
+			background-color lime
+
+			> .button
+				display inline-block
+				margin-left 15px
+				outline 1px solid red
+
+				padding-top button_padding
+				height button_height - button_padding
+
+				&:first-child
+					margin-left 0
+
 	> .jtv_wrapper
 		position absolute
 		top streamheader_size
@@ -39,12 +81,15 @@
 		left 0
 		overflow hidden
 
+		// Style if stream is not displayed
+		&.no-chat
+			> .embed
+				right 0px
+			> .chat
+				visibility hidden
+
 		> .embed
 			abspos(0, chatbox_size, 0, 0)
-
-			// Style if stream is not displayed
-			&.no-chat
-				right 0
 
 			background-color black
 

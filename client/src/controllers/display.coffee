@@ -1,8 +1,9 @@
 
-honsapp = require '../honsapp'
-hashpath = require '../hashpath'
-display_stream_view = require '../views/display_stream'
-display_page_view = require '../views/display_page'
+honsapp = require 'honsapp'
+hashpath = require 'hashpath'
+display_stream_view = require 'views/display_stream'
+display_page_view = require 'views/display_page'
+dataloader = require 'dataloader'
 
 class Display
 
@@ -13,6 +14,13 @@ class Display
 	# Members
 	defaultPath: ['pages', 'home']
 	streams: null
+	chatVisible: false
+
+	# Selectors
+	selectors:
+		jtv: '.jtv_wrapper'
+		chat: '.jtv_wrapper .chat'
+		toggleChatButton: '#stream_chat_toggle'
 
 	# Constructor
 	constructor: ->
@@ -27,6 +35,16 @@ class Display
 		# Listen for streams refresh
 		honsapp.addEventListener 'streams-refreshed', (streams)->
 			self.streams = this
+		
+		# Load settings
+		@chatVisible = dataloader.getSetting 'display-chat', false
+		
+		########################
+		## Handle HTML events ##
+		########################
+
+		@el.on 'click', @selectors.toggleChatButton, ->
+			self.toggleStreamChat()
 
 	# Decide what to do according to the input path array
 	processPath: (path)->
@@ -55,7 +73,7 @@ class Display
 		if stream
 			@el.html display_stream_view
 				stream: stream
-				showChat: true
+				showChat: @chatVisible
 		else
 			@el.html 'STREAM NOT FOUND'
 	
@@ -82,5 +100,27 @@ class Display
 		"""
 
 		@el.html display_page_view content: @markdown pagetext
+
+	# Toggles the stream chat from showing/not showing
+	toggleStreamChat: (override)->
+		jtv = $(@selectors.jtv, @el)
+		button = $(@selectors.toggleChatButton, @el)
+
+		# Hide if visible
+		if @chatVisible
+			console.log 'Display: Hiding stream chat'
+			jtv.addClass 'no-chat'
+			button.html 'Show chat'
+
+			dataloader.putSetting 'display-chat', false
+		# Show if hidden
+		else
+			console.log 'Display: Showing stream chat'
+			jtv.removeClass 'no-chat'
+			button.html 'Hide chat'
+
+			dataloader.putSetting 'display-chat', true
+		
+		@chatVisible = !@chatVisible
 
 module.exports = Display
