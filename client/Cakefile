@@ -48,12 +48,14 @@ task 'devserver', 'Serves the public folder and ' +
             when '/honsapp.js'
                 req.statusCode = 200
                 res.setHeader 'Content-Type', 'text/javascript'
-                res.end fs.readFileSync 'honsapp.js', 'UTF-8'
+                try res.end fs.readFileSync 'honsapp.js', 'UTF-8'
+                catch error then res.end ''
                 served()
             when '/honsapp.css'
                 req.statusCode = 200
                 res.setHeader 'Content-Type', 'text/css'
-                res.end fs.readFileSync 'honsapp.css', 'UTF-8'
+                try res.end fs.readFileSync 'honsapp.css', 'UTF-8'
+                catch error then res.end ''
                 served()
             else
                 req.statusCode = 404
