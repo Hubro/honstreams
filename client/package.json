@@ -1,0 +1,11 @@
+{
+	"name": "Honstreams client",
+	"dependencies": {
+		"coffee-script": "1.2.x",
+		"colors": "0.6.x",
+		"eco": "1.1.x",
+		"stitch": "0.3.x",
+		"stylus": "0.22.x",
+		"watchr": "0.1.0"
+	}
+}
