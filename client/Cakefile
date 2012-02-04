@@ -37,8 +37,9 @@ task 'devserver', 'Serves the public folder and ' +
 
     # Create server
     http.createServer (req, res)->
+        url = req.url.split('?')[0]
         served = -> console.log ('Served ' + req.url)[server_color]
-        switch req.url
+        switch url
             when '/' or '/index.html'
                 req.statusCode = 200
                 res.setHeader 'Content-Type', 'text/html'
