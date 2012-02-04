@@ -83,11 +83,45 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
 
         package = stitch.createPackage
             paths: ['src']
-            dependencies: 'vendor/' + fn for i,fn of fs.readdirSync 'vendor'
+            dependencies: [
+                'vendor/jquery.min.js'
+                'vendor/jquery.cookie.js'
+                'vendor/jquery.hashchange.min.js'
+
+                # UI/Scrollbar
+                'vendor/jquery-ui-1.8.min.js'
+                'vendor/jquery.easing.1.3.js'
+                'vendor/jquery.mousewheel.min.js'
+                'vendor/jquery.mCustomScrollbar.js'
+
+                # Markdown parser
+                'vendor/showdown.js'
+            ]
         
         # Stitch lib and write to file
         package.compile (err, source)->
             throw err if err
+
+            source = """
+            /**
+             * Honsapp - the honstreams.com client side application
+             *
+             * Includes:
+             * - showdown.js        https://github.com/coreyti/showdown
+             * - jQuery v1.7.1      http://code.jquery.com/jquery-1.7.1.js
+             * - jQuery cookie      https://github.com/carhartl/jquery-cookie
+             * - jQuery UI v1.8     http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js
+             * - jQuery easing      http://gsgd.co.uk/sandbox/jquery/easing/
+             * - jQuery Mousewheel  https://github.com/brandonaaron/jquery-mousewheel
+             * - jQuery MCS         http://manos.malihu.gr/jquery-custom-content-scroller
+             * - jQuery hashchange  https://github.com/cowboy/jquery-hashchange
+             *
+             * Written by Tomas E. Sandven <tomas191191@gmail.com>
+             * ~ Codemonkey1991
+             **/
+            #{source}
+            """
+            
             fs.writeFileSync build_to_js, source, 'UTF-8'
             cb()
     
