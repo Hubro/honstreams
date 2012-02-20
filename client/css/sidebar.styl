@@ -3,30 +3,33 @@
 	left 0
 	top 0
 	bottom 0
-	width sidebar_size - 1px
+	width sidebar_size - 3px
 
 	overflow hidden
 
 	background-color #666
-	border-right 1px solid black
+	border-right 3px solid #000
 
 	> .header
 		position relative
 		height 50px
 		cursor pointer
 
-		background-color #bbb
-		td_gradient(#bbb, #888)
+		background-color #111
+		td_gradient(#333, #000)
 
-		> .logo
+		color #fff
+
+		&:hover
+			background-color #222
+			td_gradient(#444, #111)
+
+		> .logo img
 			position relative
 			top 5px
 			left 5px
 			width 40px
 			height 40px
-			
-			background-color black
-			color white
 		
 		> .link
 			position absolute
@@ -76,15 +79,18 @@
 				td_gradient(#111, #222)
 
 			> .image
+				position relative
 				width 53px
 				height 40px
 				background-size 100%
-			
+
 			> .title
 				white-space nowrap
 				position absolute
 				top 4px
 				left 58px
+				width sidebar_size - 80px
+				overflow hidden
 				font-size 1.25em
 
 			> .viewers
@@ -92,6 +98,13 @@
 				bottom 5px
 				left 58px
 				color #888
+				font-size 0.75em
+
+			.featured
+				position absolute
+				bottom 5px
+				right 20px
+				color #b78727
 				font-size 0.75em
 
 		// Scrollbar plugin styles

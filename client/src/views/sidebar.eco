@@ -1,5 +1,7 @@
 <div class="header">
-	<div class="logo">HS</div>
+	<div class="logo">
+		<img alt="honlogo" src="images/hon.png" />
+	</div>
 	<div class="link">Honstreams</div>
 </div>
 
@@ -46,6 +48,11 @@
 										viewers
 									<% end %>
 								</div>
+								<% if stream.featured: %>
+									<div class="featured">
+										Featured
+									</div>
+								<% end %>
 							</div>
 						<% end %>
 

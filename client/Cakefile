@@ -57,6 +57,12 @@ task 'devserver', 'Serves the public folder and ' +
                 try res.end fs.readFileSync 'honsapp.css', 'UTF-8'
                 catch error then res.end ''
                 served()
+            when '/images/hon.png'
+                req.statusCode = 200
+                res.setHeader 'Content-Type', 'image/png'
+                try res.end fs.readFileSync 'public/images/hon.png'
+                catch error then res.end ''
+                served()
             else
                 req.statusCode = 404
                 console.log ('Rejected ' + req.url)[server_color]

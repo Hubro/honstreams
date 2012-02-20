@@ -1,10 +1,11 @@
 <div class="header">
     <!-- Title and stream title -->
     <div class="channel-title">
-        You're now watching <strong><%= @stream.title %></strong>
+        <div class="label">You're now watching</div>
+        <div class="title"><%= @stream.title %></div>
     </div>
     <div class="stream-title">
-        Stream title: <em>"<%= @stream.live_title %>"</em>
+        <div class="inner"><%= @stream.live_title %></div>
     </div>
 
     <!-- Display viewer count -->
@@ -37,6 +38,7 @@
             <% if @showChat: %>Hide chat box
             <% else: %>Show chat<% end %>
         </div>
+
     </div>
 </div>
 

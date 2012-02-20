@@ -36,12 +36,23 @@ lr_gradient(color1, color2)
 
 // Shortcut for border-radius
 border_radius(radius)
-	-webkit-border-radius radius
-	-khtml-border-radius radius
-	-moz-border-radius radius
-	-ms-border-radius radius
-	-o-border-radius radius
-	border-radius radius
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+border_radius_adv(a, b, c, d)
+	-webkit-border-top-left-radius a
+	-webkit-border-top-right-radius b
+	-webkit-border-bottom-right-radius c
+	-webkit-border-bottom-left-radius d
+	-moz-border-radius-topleft a
+	-moz-border-radius-topright b
+	-moz-border-radius-bottomright c
+	-moz-border-radius-bottomleft d
+	border-top-left-radius a
+	border-top-right-radius b
+	border-bottom-right-radius c
+	border-bottom-left-radius d
 
 // Shortcut for user-select
 user_select(opt)

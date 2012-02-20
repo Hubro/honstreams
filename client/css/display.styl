@@ -31,29 +31,65 @@
 		left 0
 		height streamheader_size
 
-		background-color #000
-		td_gradient(#333, #000)
+		background-color #222
+		td_gradient(#444, #222)
 		color #ddd
 
-		> .channel-title, > .stream-title
-			margin 10px
+		> .channel-title
+			> .label
+				position absolute
+				top 10px
+				left 10px
+			> .title
+				position absolute
+				top 25px
+				left 10px
+				font-size 2em
+				user_select(text)
+				cursor auto
 		
-		> .viewers
-			margin 10px
-
+		> .stream-title
 			position absolute
-			top 0
-			right 0
+			right 0px
+			bottom 0px
+			left 0px
+			text-align center
+
+			> .inner
+				display inline-block
+				background-color #000
+				padding 7.5px
+				border_radius_adv(5px, 5px, 0px, 0px)
+				box-shadow 0px -1px 5px rgba(255, 255, 255, 0.33)
+				user_select(text)
+				cursor auto
+				
+
+		> .viewers
+			position absolute
+			top 10px
+			right 10px
 			text-align right
+
+			color #999
+			text-shadow 1px 1px 0px rgba(0, 0, 0, 0.4)
+
+			user_select(text)
+			cursor auto
 		
 			> span
 				font-weight bold
 		
 		> .featured
-			margin 10px
 			position absolute
-			top 48px
-			right 0
+			bottom 10px
+			right 10px
+
+			color #999
+			text-shadow 1px 1px 0px rgba(0, 0, 0, 0.4)
+
+			> strong
+				color #b78727
 		
 		> .toolbar
 			button_height = 30px
@@ -121,9 +157,21 @@
 			> .reloadbtn
 				padding 5px
 				margin 10px 10px 0px 10px
-				background-color lime
-				cursor pointer
 				text-align center
+
+				background-color #666
+				color #ddd
+				td_gradient(#666, #444)
+				border_radius(3px)
+
+				cursor pointer
+
+				&:hover
+					background-color #777
+					td_gradient(#777, #555)
+				
+				&:active
+					box-shadow inset 0px 5px 5px rgba(0, 0, 0, 0.25)
 			
 			> .wrapper > iframe
 				width 100%
