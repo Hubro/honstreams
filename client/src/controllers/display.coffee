@@ -79,21 +79,11 @@ class Display
         pagetext = """
             # Welcome to Honstreams.com!
 
-            This is the **home** page!
+            This is an early beta version of Honstreams 3.0 so don't expect
+            every feature to work perfectly in every scenario imaginable.
 
-            Look, it even supports pure HTML:
-
-            <object type="application/x-shockwave-flash" id="live_embed_player_flash" 
-            data="http://www.justin.tv/widgets/live_embed_player.swf?channel=milkfat&auto_play=false" 
-            bgcolor="#000000" width="640" height="480">
-                <param name="allowFullScreen" value="true" />
-                <param name="allowScriptAccess" value="always" />
-                <param name="allowNetworking" value="all" />
-                <param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" />
-                <param name="flashvars" value="channel=milkfat&auto_play=false" />
-            </object>
-
-            So I can embed **donate boxes** and stuff
+            If you have any feature requests or complaints please contact me on
+            <tomas@honstreams.com>
         """
 
         @el.html display_page_view content: @markdown pagetext

@@ -54,7 +54,7 @@
             <param name="allowScriptAccess" value="always" />
             <param name="allowNetworking" value="all" />
             <param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" />
-            <param name="flashvars" value="channel=<%=@stream.channel%>&auto_play=false" />
+            <param name="flashvars" value="channel=<%=@stream.channel%>&auto_play=true" />
         </object>
     </div>
 
