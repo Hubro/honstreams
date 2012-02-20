@@ -1,0 +1,54 @@
+sidebar_size = 250px
+chatbox_size = 275px
+streamheader_size = 100px
+
+default_font_face = "Verdana", "Trebuchet MS", "Helvetica"
+default_font_size = 0.75em
+button_font_face = "Segoe UI", "Tahoma", "Helvetica"
+button_font_size = 0.75em
+h1_font_face = "Myriad Pro"
+h1_font_size = 2em
+
+// Shortcut for position: absolute stuff
+// top, right, bottom, left
+abspos(a, b, c, d)
+	position absolute
+	top a
+	right b
+	bottom c
+	left d
+
+// Shortcut for top-down gradient background color
+td_gradient(color1, color2)
+	background -webkit-gradient(linear, 0% 0%, 0% 100%, from(color1), to(color2))
+	background -webkit-linear-gradient(top, color1, color2)
+	background -moz-linear-gradient(top, color1, color2)
+	background -ms-linear-gradient(top, color1, color2)
+	background -o-linear-gradient(top, color1, color2)
+
+// Shortcut for left-right gradient background color
+lr_gradient(color1, color2)
+	background -webkit-gradient(linear, 0% 0%, 100% 0%, from(color1), to(color2))
+	background -webkit-linear-gradient(left, color1, color2)
+	background -moz-linear-gradient(left, color1, color2)
+	background -ms-linear-gradient(left, color1, color2)
+	background -o-linear-gradient(left, color1, color2)
+
+// Shortcut for border-radius
+border_radius(radius)
+	-webkit-border-radius radius
+	-khtml-border-radius radius
+	-moz-border-radius radius
+	-ms-border-radius radius
+	-o-border-radius radius
+	border-radius radius
+
+// Shortcut for user-select
+user_select(opt)
+	-webkit-touch-callout opt
+	-webkit-user-select opt
+	-khtml-user-select opt
+	-moz-user-select opt
+	-ms-user-select opt
+	-o-user-select opt
+	user-select opt

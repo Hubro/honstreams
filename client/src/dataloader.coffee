@@ -14,9 +14,6 @@ self.fetchLiveStreams = (callback)->
 			# gets an object, so convert to object if it's a string
 			if typeof data == 'string' then data = JSON.parse data
 
-			console.log 'dataloader: fetchLiveStreams: success: ' + 
-				data.length + ' streams fetched'
-
 			callback data
 		error: (req, status, error)->
 			console.log 'dataloader: fetchLiveStreams: error: ' + status
@@ -28,7 +25,6 @@ self.getSetting = (name, fallback)->
 
 	if memory
 		value = memory[name] or fallback
-		console.log "dataloader: getSettings: fetched setting #{name}=#{value}"
 		return value
 	else return fallback
 
@@ -39,8 +35,6 @@ self.putSetting = (name, value)->
 	if !memory then memory = {}
 
 	memory[name] = value
-
-	console.log "dataloader: putSetting: set setting #{name}=#{value}"
 
 	self.putSettings memory
 

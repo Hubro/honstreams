@@ -1,3 +1,5 @@
-<div class="page">
-	<%- @content %>
+<div class="page_wrapper">
+    <div class="page">
+        <%- @content %>
+    </div>
 </div>

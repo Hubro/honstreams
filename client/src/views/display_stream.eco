@@ -1,67 +1,68 @@
 <div class="header">
-	<!-- Title and stream title -->
-	<div class="channel-title">
-		You're now watching <strong><%= @stream.title %></strong>
-	</div>
-	<div class="stream-title">
-		Stream title: <em>"<%= @stream.live_title %>"</em>
-	</div>
+    <!-- Title and stream title -->
+    <div class="channel-title">
+        You're now watching <strong><%= @stream.title %></strong>
+    </div>
+    <div class="stream-title">
+        Stream title: <em>"<%= @stream.live_title %>"</em>
+    </div>
 
-	<!-- Display viewer count -->
-	<div class="viewers">
-		<!-- Total viewers -->
-		<div class="all" title="<%= @stream.channel %> has <%= @stream.viewers %> viewers">
-			Viewers: <span><%= @stream.viewers %></span>
-		</div>
-		<!-- Embed viewers -->
-		<div class="embed" title="<%= @stream.embed_viewers %> viewers are watching from embedded streams">
-			Embed viewers: <span><%= @stream.embed_viewers %></span>
-		</div>
-	</div>
+    <!-- Display viewer count -->
+    <div class="viewers">
+        <!-- Total viewers -->
+        <div class="all" title="<%= @stream.channel %> has <%= @stream.viewers %> viewers">
+            Viewers: <span><%= @stream.viewers %></span>
+        </div>
+        <!-- Embed viewers -->
+        <div class="embed" title="<%= @stream.embed_viewers %> viewers are watching from embedded streams">
+            Embed viewers: <span><%= @stream.embed_viewers %></span>
+        </div>
+    </div>
 
-	<!-- If the stream is featured on justin.tv -->
-	<% if @stream.featured: %>
-		<div class="featured">
-			This stream is <strong>featured</strong> on twitch.tv
-		</div>
-	<% end %>
-	<div class="toolbar">
+    <!-- If the stream is featured on justin.tv -->
+    <% if @stream.featured: %>
+        <div class="featured">
+            This stream is <strong>featured</strong> on twitch.tv
+        </div>
+    <% end %>
+    <div class="toolbar">
 
-		<!-- Visit twitch.tv page -->
-		<div class="button">
-			<a href="http://twitch.tv/<%= @stream.channel %>" target="new">
-				Visit twitch.tv page
-			</a>
-		</div>
+        <!-- Visit twitch.tv page -->
+        <div class="button" id="visit_stream_page">
+            Visit twitch.tv page
+        </div>
 
-		<!-- Show/Hide chat -->
-		<div class="button" id="stream_chat_toggle">
-			<% if @showChat: %>Hide chat box
-			<% else: %>Show chat<% end %>
-		</div>
-	</div>
+        <!-- Show/Hide chat -->
+        <div class="button" id="stream_chat_toggle">
+            <% if @showChat: %>Hide chat box
+            <% else: %>Show chat<% end %>
+        </div>
+    </div>
 </div>
 
 <!-- Wrapper for stream embed and chat box -->
 <div class="jtv_wrapper<% if !@showChat: %> no-chat<% end %>">
 
-	<!-- Stream embed -->
-	<div class="embed">
-		<object type="application/x-shockwave-flash" id="live_embed_player_flash"
-		data="http://www.justin.tv/widgets/live_embed_player.swf?channel=<%=@stream.channel%>&auto_play=false"
-		bgcolor="#000000">
-			<param name="allowFullScreen" value="true" />
-			<param name="allowScriptAccess" value="always" />
-			<param name="allowNetworking" value="all" />
-			<param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" />
-			<param name="flashvars" value="channel=<%=@stream.channel%>&auto_play=false" />
-		</object>
-	</div>
+    <!-- Stream embed -->
+    <div class="embed">
+        <object type="application/x-shockwave-flash" id="live_embed_player_flash"
+        data="http://www.justin.tv/widgets/live_embed_player.swf?channel=<%=@stream.channel%>&auto_play=true"
+        bgcolor="#000000">
+            <param name="allowFullScreen" value="true" />
+            <param name="allowScriptAccess" value="always" />
+            <param name="allowNetworking" value="all" />
+            <param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" />
+            <param name="flashvars" value="channel=<%=@stream.channel%>&auto_play=false" />
+        </object>
+    </div>
 
-	<!-- Chat box -->
-	<div class="chat">
-		<iframe id="chat_embed" frameborder="0" scrolling="no" 
-			src="http://www.justin.tv/chat/embed?channel=<%=@stream.channel%>&default_chat=jtv">
-		</iframe>
-	</div>
+    <!-- Chat box -->
+    <div class="chat">
+        <div class="reloadbtn">Reload chat</div>
+        <div class="wrapper">
+            <iframe id="chat_embed" frameborder="0" scrolling="no" 
+                src="http://www.justin.tv/chat/embed?channel=<%=@stream.channel%>&default_chat=jtv">
+            </iframe>
+        </div>
+    </div>
 </div>

@@ -94,6 +94,9 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
                 'vendor/jquery.mousewheel.min.js'
                 'vendor/jquery.mCustomScrollbar.js'
 
+                # tipsy
+                'vendor/jquery.tipsy.js'
+
                 # Markdown parser
                 'vendor/showdown.js'
             ]
@@ -106,7 +109,7 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
             /**
              * Honsapp - the honstreams.com client side application
              *
-             * Includes:
+             * Implements:
              * - showdown.js        https://github.com/coreyti/showdown
              * - jQuery v1.7.1      http://code.jquery.com/jquery-1.7.1.js
              * - jQuery cookie      https://github.com/carhartl/jquery-cookie
@@ -114,6 +117,7 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
              * - jQuery easing      http://gsgd.co.uk/sandbox/jquery/easing/
              * - jQuery Mousewheel  https://github.com/brandonaaron/jquery-mousewheel
              * - jQuery MCS         http://manos.malihu.gr/jquery-custom-content-scroller
+             * - jQuery tipsy       https://github.com/jaz303/tipsy
              * - jQuery hashchange  https://github.com/cowboy/jquery-hashchange
              *
              * Written by Tomas E. Sandven <tomas191191@gmail.com>

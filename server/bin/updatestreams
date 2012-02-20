@@ -1,7 +1,0 @@
-#!/usr/bin/env coffee
-
-justintv = require '../src/justintv'
-Stream = require '../src/models/stream'
-
-justintv.fetchLiveStreams (streams)->
-	Stream.updateAllFromRaw streams

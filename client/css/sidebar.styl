@@ -3,15 +3,20 @@
 	left 0
 	top 0
 	bottom 0
-	width sidebar_size
+	width sidebar_size - 1px
 
 	overflow hidden
 
-	background-color lightblue
+	background-color #666
+	border-right 1px solid black
 
 	> .header
 		position relative
 		height 50px
+		cursor pointer
+
+		background-color #bbb
+		td_gradient(#bbb, #888)
 
 		> .logo
 			position relative
@@ -25,30 +30,50 @@
 		
 		> .link
 			position absolute
-			top 15px
+			top 11px
 			left 60px
+
+			font-size 2em
+			font-family "Myriad Pro"
+			text-shadow 2px 2px 4px rgba(0, 0, 0, 0.5)
 	
 	> .streams-info
-		height 50px
+		height 30px
+		padding 5px
 
-		background-color red
+		background-color #888
+		td_gradient(#abcdef - #333, #abcdef - #555)
+
+		border-top 1px solid black
+
+		color #000
+		text-shadow 1px 1px 0px rgba(255, 255, 255, 0.2)
 			
 	> .streams
 		position absolute
-		top 100px
+		top 90px
 		left 0px
 		bottom 0px
 		width sidebar_size
 
-		background-color green
-
 		.stream
 			position relative
 			height 40px
-			background-color orange
-			color black
-			margin-bottom 5px
+			background-color #111
+			td_gradient(#222, #111)
+			color #fff
+			margin-bottom 2px
 			width sidebar_size
+
+			cursor pointer
+
+			&:hover
+				background-color #222
+				td_gradient(#333, #222)
+			
+			&:active
+				background-color #000
+				td_gradient(#111, #222)
 
 			> .image
 				width 53px
@@ -58,14 +83,16 @@
 			> .title
 				white-space nowrap
 				position absolute
-				top 3px
+				top 4px
 				left 58px
+				font-size 1.25em
 
 			> .viewers
 				position absolute
-				bottom 3px
+				bottom 5px
 				left 58px
-				color black + #555
+				color #888
+				font-size 0.75em
 
 		// Scrollbar plugin styles
 		> #sidebar_streams_container
@@ -85,21 +112,22 @@
 				right 5px
 				bottom 5px
 				width 10px
-				opacity 0.5
+				opacity 0.3
 
 				&:hover
-					opacity 0.7
+					opacity 0.8
 			
 				> .dragger
 					position absolute
 					width 10px
 					height 100px
 					cursor pointer
-					background-color #000
+					background-color #fff
+					border_radius(5px)
 				
 				> .dragger_pressed
 					position absolute
 					width 10px
 					height 100px
 					cursor pointer
-					background-color #555
+					background-color #ddd

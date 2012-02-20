@@ -7,15 +7,19 @@
 
 	overflow hidden
 
-	background-color cyan
-
 	//
 	// STYLES FOR DISPLAY_PAGE
 	//
-	> .page
-		width 640px
+	> .page_wrapper
+		abspos(0, 0, 0, 0)
+		background-color #ddd
+		user_select(text)
+		cursor auto
+	
+		> .page
+			width 640px
 
-		margin 25px auto
+			margin 25px auto
 
 	//
 	// STYLES FOR DISPLAY_STREAM
@@ -27,7 +31,9 @@
 		left 0
 		height streamheader_size
 
-		background-color violet
+		background-color #000
+		td_gradient(#333, #000)
+		color #ddd
 
 		> .channel-title, > .stream-title
 			margin 10px
@@ -54,22 +60,30 @@
 			button_padding = 8px
 
 			position absolute
-			bottom 5px
-			left 5px
+			bottom 10px
+			left 10px
 			height button_height
-
-			background-color lime
 
 			> .button
 				display inline-block
-				margin-left 15px
-				outline 1px solid red
+				margin-right 5px
 
-				padding-top button_padding
-				height button_height - button_padding
+				background-color #666
+				td_gradient(#666, #444)
+				border_radius(3px)
 
-				&:first-child
-					margin-left 0
+				cursor pointer
+
+				padding button_padding
+				height button_height - button_padding * 2
+
+				&:hover
+					background-color #777
+					td_gradient(#777, #555)
+				
+				&:active
+					box-shadow inset 0px 5px 5px rgba(0, 0, 0, 0.25)
+					
 
 	> .jtv_wrapper
 		position absolute
@@ -104,6 +118,13 @@
 
 			background-color black
 
-			> iframe
+			> .reloadbtn
+				padding 5px
+				margin 10px 10px 0px 10px
+				background-color lime
+				cursor pointer
+				text-align center
+			
+			> .wrapper > iframe
 				width 100%
 				height 100%
