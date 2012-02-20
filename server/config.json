@@ -8,7 +8,7 @@
 		"port": 3306,
 		"database": "honsdb",
 		"username": "root",
-		"password": "12345",
+		"password": "",
 
 		// If true, all executed SQL will be printed to stdout
 		"logging": false

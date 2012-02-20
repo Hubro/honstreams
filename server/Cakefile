@@ -1,7 +1,7 @@
 {exec, spawn} = require 'child_process'
 
 task 'tree', 'Show a tree of the project folder', ->
-    exec 'tree -I node_modules', (err, stdout, stderr)->
+    exec 'tree -I node_modules -C', (err, stdout, stderr)->
         console.log stdout
 
 task 'devserver', 'Run the server using nodemon', ->
@@ -23,3 +23,28 @@ task 'build', 'Builds the project into JavaSript (./lib)', ->
         else
             console.log stdout
             console.log 'Project built to ./lib'
+
+task 'updatestreams', 'Update live streams', ->
+    justintv = require './src/justintv'
+    Stream = require './src/models/stream'
+
+    justintv.fetchLiveStreams (streams)->
+        Stream.updateAllFromRaw streams
+
+task 'updateloop', 'Runs updatestreams once per minute', ->
+    justintv = require './src/justintv'
+    Stream = require './src/models/stream'
+    
+    update = ->
+        justintv.fetchLiveStreams (streams)->
+            Stream.updateAllFromRaw streams, ->
+                console.log 'Waiting 60 seconds for the next update'.magenta
+    
+    update()
+
+    setInterval ->
+        update()
+    , 60000
+
+task 'startupdateloop', 'Runs updateloop as a daemon using forever', ->
+    return

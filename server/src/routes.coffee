@@ -15,6 +15,10 @@ streams = (req, res)->
 
 # View for fetching all live streams in json format
 live_streams = (req, res)->
+
+	# REMOVE THIS FOR PRODUCTION
+	res.header 'Access-Control-Allow-Origin', '*'
+
 	Stream = require './models/stream'
 
 	res.charset = 'UTF-8'
@@ -29,5 +33,5 @@ live_streams = (req, res)->
 		
 # Function for applying all the views to a express server instance
 exports.apply = (server)->
-	server.get '/streams', streams
-	server.get '/live_streams', live_streams
+	server.all '/streams', streams
+	server.all '/live_streams', live_streams

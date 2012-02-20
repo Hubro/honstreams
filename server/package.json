@@ -7,6 +7,8 @@
 	"dependencies": {
 		"express": "2.5.x",
 		"sequelize": "1.3.x",
+		"mysql": "0.9.x",
+		"mysql-queues": "0.3.x",
 		"oauth": "0.9.x",
 		"async": "0.1.x",
 		"optimist": "0.3.x",
