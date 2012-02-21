@@ -4,7 +4,7 @@ express = require 'express'
 
 # Always run this config
 all = (server)->
-	server.use express.static(__dirname + '/../public')
+	server.use express.static(__dirname + '/../../client/public')
 
 # Run this when developing
 development = (server)->

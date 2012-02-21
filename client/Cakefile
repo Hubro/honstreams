@@ -79,8 +79,8 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
 
     build_from_coffee = __dirname + '/src'
     build_from_styl = __dirname + '/css'
-    build_to_js = __dirname + '/honsapp.js'
-    build_to_css = __dirname + '/honsapp.css'
+    build_to_js = __dirname + '/public/honsapp.js'
+    build_to_css = __dirname + '/public/honsapp.css'
 
     stitch = (cb)->
         console.log 'Stitching...'[build_color]

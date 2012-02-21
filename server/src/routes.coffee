@@ -1,10 +1,13 @@
 
+#index = (req, res)->
+#	res.contentType 'text/html'
+#
+#	
 # View for retrieving all streams in json format
 streams = (req, res)->
-	Stream = require './models/stream'
-
-	res.charset = 'UTF-8'
 	res.contentType 'application/json'
+
+	Stream = require './models/stream'
 
 	Stream.all()
 	.success (result)->
@@ -15,14 +18,9 @@ streams = (req, res)->
 
 # View for fetching all live streams in json format
 live_streams = (req, res)->
-
-	# REMOVE THIS FOR PRODUCTION
-	res.header 'Access-Control-Allow-Origin', '*'
+	res.contentType 'application/json'
 
 	Stream = require './models/stream'
-
-	res.charset = 'UTF-8'
-	res.contentType 'application/json'
 
 	Stream.findAll(where: live: true)
 	.success (result)->
@@ -33,5 +31,6 @@ live_streams = (req, res)->
 		
 # Function for applying all the views to a express server instance
 exports.apply = (server)->
+	# server.get '/', index
 	server.all '/streams', streams
 	server.all '/live_streams', live_streams
