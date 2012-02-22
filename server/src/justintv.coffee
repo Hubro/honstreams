@@ -19,10 +19,14 @@ apiRequest = (path, callback)->
 	
 	# Attempt to run a request to the API
 	jtvhandle.get jc.api_root + path, jc.key, jc.secret, (error, result)->
-		info_object = JSON.parse result
-
-		# Run callback with the result
-		callback info_object
+		# Try to parse the result and pass it to the callback
+		try
+			info_object = JSON.parse result
+			callback info_object
+		# If the parsing fails, log the error and pass null to the callback
+		catch error
+			process.stderr.write String(error)
+			callback null
 
 # Checks if the input stream name is live. Passes true of false to the callback,
 # representing online or offline respectively. Can throw exceptions.

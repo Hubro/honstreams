@@ -29,6 +29,10 @@ task 'updatestreams', 'Update live streams', ->
     Stream = require './src/models/stream'
 
     justintv.fetchLiveStreams (streams)->
+        # streams can be null
+        if !streams then return
+
+        # If not, run the update
         Stream.updateAllFromRaw streams
 
 task 'updateloop', 'Runs updatestreams once per minute', ->
@@ -37,6 +41,10 @@ task 'updateloop', 'Runs updatestreams once per minute', ->
     
     update = ->
         justintv.fetchLiveStreams (streams)->
+            # streams can be null
+            if !streams then return
+
+            # If not, run the update
             Stream.updateAllFromRaw streams, ->
                 console.log 'Waiting 60 seconds for the next update'.magenta
     
