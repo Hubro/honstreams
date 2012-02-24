@@ -10,17 +10,27 @@ config = require 'config'
 
 # Initiates the honstreams app
 self.init = (selector)->
-
-    # Check if the configuration file was loaded
-    if config.error
-        @el.html 'Failed to load configuration file'
-        return
     
     # Tie the creation to window.ready just to be sure
     $ ->
         # Set class to honsapp
         self.el = $(selector).addClass 'honsapp'
 
+        # Check if the configuration file was loaded
+        if config.error
+            mail_link = 'mailto:tomas@honstreams.com' +
+                '?subject=Honstreams fatal error' +
+                '&body=Honstreams.com is throwing a fatal error'
+            self.el.html """
+                <div class="error">
+                    A fatal error has occurred. Please
+                    <a href="#{mail_link}">notify me</a> about
+                    this immediately!
+                    <p><sub>Thank you - Codemonkey1991</sub></p>
+                </div>
+            """
+            return
+        
         # Add the sidebar
         sidebar = Sidebar.create()
         self.el.append sidebar.el

@@ -3,6 +3,7 @@ honsapp = require '../honsapp'
 sidebarview = require '../views/sidebar'
 hashpath = require '../hashpath'
 EventEmitter = require 'eventemitter'
+config = require 'config'
 
 class Sidebar
 
@@ -57,6 +58,7 @@ class Sidebar
 	render: ->
 		@el.html sidebarview
 			streams: @streams
+			config: config
 		
 		@el_refresh_countdown = 
 			$('.streams-info > .refresh-countdown span', @el)

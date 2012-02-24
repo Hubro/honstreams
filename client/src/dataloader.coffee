@@ -1,53 +1,64 @@
 
+config = require 'config'
+
 self = module.exports
 
 # Fetch the live streams
 self.fetchLiveStreams = (callback)->
-	url = 'http://chu.avestaweb.no:1337/live_streams'
+    url = config.stream_data_url
 
-	$.ajax
-		url: url
-		type: 'GET'
-		datatype: 'json'
-		success: (data, status)->
-			# For some reason FireFox gets data as a string here, while Chrome
-			# gets an object, so convert to object if it's a string
-			if typeof data == 'string' then data = JSON.parse data
+    $.ajax
+        url: url
+        type: 'GET'
+        datatype: 'json'
+        complete: (e)->
+            # Check if the streams were loaded successfully
+            if e.status == 200
+                try
+                    callback JSON.parse e.responseText
+                catch error
+                    console.error 'Stream data could not be parsed. Error: ' +
+                                  String(error)
+                    callback false
+            else
+                console.error 'Stream data could not be loaded. Status: ' + 
+                              e.status
+                callback false
 
-			callback data
-		error: (req, status, error)->
-			console.log 'dataloader: fetchLiveStreams: error: ' + status
-			console.log error
+##
+## Functions for memories
+## cookie based settings specific for each visitor
+##
 
-# Get the setting, either from config or cookie. fallback overrides undefined
-self.getSetting = (name, fallback)->
-	memory = self.getSettings()
+# Get the memory from cookie. fallback overrides undefined
+self.getMemory = (name, fallback)->
+    memory = self.getMemories()
 
-	if memory
-		value = memory[name] or fallback
-		return value
-	else return fallback
+    if memory
+        value = memory[name] or fallback
+        return value
+    else return fallback
 
-# Save a setting in a cookie
-self.putSetting = (name, value)->
-	# Fetch or create the memory
-	memory = self.getSettings()
-	if !memory then memory = {}
+# Save a memory in a cookie
+self.putMemory = (name, value)->
+    # Fetch or create the memory
+    memory = self.getMemories()
+    if !memory then memory = {}
 
-	memory[name] = value
+    memory[name] = value
 
-	self.putSettings memory
+    self.putMemories memory
 
 # Get the entire memory cookie
-self.getSettings = ->
-	memory = $.cookie 'honsapp-memory'
+self.getMemories = ->
+    memory = $.cookie 'honsapp-memory'
 
-	if memory
-		memory = JSON.parse memory
+    if memory
+        memory = JSON.parse memory
 
-		return memory
-	else return null
+        return memory
+    else return null
 
 # Set the entire memory cookie
-self.putSettings = (memory)->
-	$.cookie 'honsapp-memory', JSON.stringify(memory), 365
+self.putMemories = (memory)->
+    $.cookie 'honsapp-memory', JSON.stringify(memory), 365
