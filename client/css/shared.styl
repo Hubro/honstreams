@@ -1,4 +1,4 @@
-sidebar_size = 250px
+sidebar_size = 237px
 chatbox_size = 275px
 streamheader_size = 100px
 
@@ -26,7 +26,7 @@ td_gradient(color1, color2)
 	background -moz-linear-gradient(top, color1, color2)
 	background -ms-linear-gradient(top, color1, color2)
 	background -o-linear-gradient(top, color1, color2)
-	// filter s("progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorstr='%s', EndColorstr='%s')", color1, color2)
+	filter s("progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorstr='%s', EndColorstr='%s')", color1, color2)
 
 // Shortcut for left-right gradient background color
 lr_gradient(color1, color2)
@@ -38,11 +38,11 @@ lr_gradient(color1, color2)
 
 // Shortcut for border-radius
 border_radius(radius)
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius 5px
+	-moz-border-radius 5px
+	border-radius 5px
 
-border_radius_adv(a, b, c, d)
+border_radius(a, b = a, c = a, d = a)
 	-webkit-border-top-left-radius a
 	-webkit-border-top-right-radius b
 	-webkit-border-bottom-right-radius c
