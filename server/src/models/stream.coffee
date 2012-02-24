@@ -147,7 +147,7 @@ Stream_attr =
                     rawstream.embed_count or 0,
                     rawstream.channel.embed_enabled,
                     rawstream.featured,
-                    rawdata.broadcaster == 'delayed',
+                    rawstream.broadcaster == 'delay',
                     new Date(),
                     new Date(),
                     new Date()
