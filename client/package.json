@@ -6,6 +6,6 @@
 		"eco": "1.1.x",
 		"stitch": "0.3.x",
 		"stylus": "0.22.x",
-		"watchr": "0.1.0"
+		"nodewatch": "0.1.x"
 	}
 }
