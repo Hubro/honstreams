@@ -16,13 +16,13 @@
 		cursor pointer
 
 		background-color #111
-		td_gradient(#333, #000)
+		td_gradient(#343434, #010101)
 
 		color #fff
 
 		&:hover
 			background-color #222
-			td_gradient(#444, #111)
+			td_gradient(#454545, #121212)
 
 		> .logo img
 			position relative
@@ -45,7 +45,7 @@
 		padding 5px
 
 		background-color #888
-		td_gradient(#abcdef - #333, #abcdef - #555)
+		td_gradient(#abcdef - #333333, #abcdef - #555555)
 
 		border-top 1px solid black
 
@@ -56,14 +56,16 @@
 		position absolute
 		top 90px
 		left 0px
-		bottom 0px
+		bottom 63px
 		width sidebar_size
+
+		border-bottom 3px solid black
 
 		.stream
 			position relative
 			height 40px
 			background-color #111
-			td_gradient(#222, #111)
+			td_gradient(#232323, #121212)
 			color #fff
 			margin-bottom 2px
 			width sidebar_size
@@ -72,11 +74,11 @@
 
 			&:hover
 				background-color #222
-				td_gradient(#333, #222)
+				td_gradient(#343434, #232323)
 			
 			&:active
 				background-color #000
-				td_gradient(#111, #222)
+				td_gradient(#121212, #232323)
 
 			> .image
 				position relative
@@ -145,3 +147,10 @@
 					height 100px
 					cursor pointer
 					background-color #ddd
+
+	> .ad
+		position absolute
+		right 0px
+		bottom 0px
+		left 0px
+		height 60px
