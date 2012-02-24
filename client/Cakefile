@@ -16,61 +16,17 @@ task 'clean', 'Remove all files and directories made by build', ->
     try exec 'rm -r honsapp.js honsapp.css lib', {cwd:__dirname}, ->
         console.log 'Project cleaned'[clean_color]
 
-task 'devserver', 'Serves the public folder and ' +
-                   'restarts the server on file change', (options)->
-    
-    # Server port
-    port = options.port or 1338
+task 'watch', 'Watch source and css directories for changed', ->
+    console.log 'Watching ./src and ./css...'
 
-    http = require 'http'
-    fs = require 'fs'
-    watchr = require 'watchr'
-    
-    watchr.watch './', ->
-        console.log 'Something changed'[server_color]
-        invoke 'clean'
+    nodewatch = require 'nodewatch'
+    nodewatch
+    .add('./src', true)
+    .add('./css')
+    .onChange (file, prev, curr, action)->
+        filename = '.' + file.replace __dirname, ''
+        console.log filename + ' changed. Rebuilding...'
         invoke 'build'
-
-    # Clean and build first
-    invoke 'clean'
-    invoke 'build'
-
-    # Create server
-    http.createServer (req, res)->
-        url = req.url.split('?')[0]
-        served = -> console.log ('Served ' + req.url)[server_color]
-        switch url
-            when '/' or '/index.html'
-                req.statusCode = 200
-                res.setHeader 'Content-Type', 'text/html'
-                res.end fs.readFileSync 'public/index.html', 'UTF-8'
-                served()
-            when '/honsapp.js'
-                req.statusCode = 200
-                res.setHeader 'Content-Type', 'text/javascript'
-                try res.end fs.readFileSync 'honsapp.js', 'UTF-8'
-                catch error then res.end ''
-                served()
-            when '/honsapp.css'
-                req.statusCode = 200
-                res.setHeader 'Content-Type', 'text/css'
-                try res.end fs.readFileSync 'honsapp.css', 'UTF-8'
-                catch error then res.end ''
-                served()
-            when '/images/hon.png'
-                req.statusCode = 200
-                res.setHeader 'Content-Type', 'image/png'
-                try res.end fs.readFileSync 'public/images/hon.png'
-                catch error then res.end ''
-                served()
-            else
-                req.statusCode = 404
-                console.log ('Rejected ' + req.url)[server_color]
-
-        res.end 'Error'
-    .listen port
-
-    console.log ('Listening on ' + port)[server_color]
 
 task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
     fs = require 'fs'
