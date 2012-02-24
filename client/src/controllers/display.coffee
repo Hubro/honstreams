@@ -32,12 +32,12 @@ class Display
         converter = new Showdown.converter()
         @markdown = converter.makeHtml
 
-        # Listen for streams refresh
-        honsapp.addEventListener 'streams-refreshed', (streams)->
-            self.streams = this
-        
         # Load settings
-        @chatVisible = dataloader.getSetting 'display-chat', false
+        @chatVisible = dataloader.getMemory 'display-chat', false
+    
+    # Setter for the streams
+    setStreams: (streams)->
+        @streams = streams
 
     # Decide what to do according to the input path array
     processPath: (path)->
@@ -121,7 +121,6 @@ class Display
                 """
         
         @
-            
 
     # Toggles the stream chat from showing/not showing
     toggleStreamChat: (override)->
@@ -134,14 +133,14 @@ class Display
             jtv.addClass 'no-chat'
             button.html 'Show chat'
 
-            dataloader.putSetting 'display-chat', false
+            dataloader.putMemory 'display-chat', false
         # Show if hidden
         else
             console.log 'Display: Showing stream chat'
             jtv.removeClass 'no-chat'
             button.html 'Hide chat'
 
-            dataloader.putSetting 'display-chat', true
+            dataloader.putMemory 'display-chat', true
         
         @chatVisible = !@chatVisible
 

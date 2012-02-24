@@ -2,6 +2,7 @@
 honsapp = require '../honsapp'
 sidebarview = require '../views/sidebar'
 hashpath = require '../hashpath'
+EventEmitter = require 'eventemitter'
 
 class Sidebar
 
@@ -11,8 +12,10 @@ class Sidebar
 	
 	# Constructor
 	constructor: ->
-		self = @self = this
+		# Make this an event emitter
+		EventEmitter.mix @
 
+		self = @self = this
 		@el = $('<div>').addClass 'sidebar'
 
 		# On stream click
@@ -27,14 +30,7 @@ class Sidebar
 		@el.on 'click', '.header', (e)->
 			hashpath.setPath ['pages', 'home']
 		
-		# Listen for streams refresh
-		honsapp.addEventListener 'streams-refreshed', ->
-			self.setStreams this
-		
 		@render()
-
-		$(window).resize -> 
-			$('#sidebar_streams_container .dragger', @el).css('top', '0px');
 
 	# Function for setting the streams
 	setStreams: (streams)->
@@ -65,11 +61,11 @@ class Sidebar
 		@el_refresh_countdown = 
 			$('.streams-info > .refresh-countdown span', @el)
 		
-		@scrollbarSetup();
+		@scrollbarSetup()
 	
 	scrollbarSetup: ->
 		if($('#sidebar_streams_container', @el).length > 0)
 			$('#sidebar_streams_container', @el).mCustomScrollbar('vertical', 
-				100, 'easeOutCirc', 0.1, 'auto', 'yes', 'no', 10);
+				100, 'easeOutCirc', 0, 'auto', 'yes', 'no', 10);
 
 module.exports = Sidebar
