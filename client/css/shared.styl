@@ -26,9 +26,7 @@ td_gradient(color1, color2)
 	background -moz-linear-gradient(top, color1, color2)
 	background -ms-linear-gradient(top, color1, color2)
 	background -o-linear-gradient(top, color1, color2)
-	// @css {
-	// 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=color1, endColorstr=color2);
-	// }
+	// filter s("progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorstr='%s', EndColorstr='%s')", color1, color2)
 
 // Shortcut for left-right gradient background color
 lr_gradient(color1, color2)
