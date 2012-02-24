@@ -4,12 +4,12 @@ hashpath = require 'hashpath'
 display_stream_view = require 'views/display_stream'
 display_page_view = require 'views/display_page'
 dataloader = require 'dataloader'
+tracker = require 'tracker'
 
 class Display
 
     # Static factory function
-    @create: ->
-        return new Display()
+    @create: -> return new Display()
     
     # Members
     defaultPath: ['pages', 'home']
@@ -94,10 +94,16 @@ class Display
         # Stream toolbar button "Hide chat box"
         $('#stream_chat_toggle', @el).click ->
             self.toggleStreamChat()
+
+            # Track the event
+            tracker.event 'ChatToggleButton', 'Click', self.channel
         
         # Stream toolbar button "Visit stream page"
         $('#visit_stream_page', @el).click ->
             window.open "http://twitch.tv/#{self.channel}"
+
+            # Track the event
+            tracker.event 'VisitTwitchButton', 'Click', self.channel
 
         # Chat reload button
         $('.jtv_wrapper > .chat > .reloadbtn', @el).click ->
@@ -107,6 +113,9 @@ class Display
             # Empty the wrapper and reinsert the HTML
             wrapper.empty()
             wrapper.html html
+
+            # Track the event
+            tracker.event 'ChatReloadButton', 'Click', self.channel
         
         # Chat reload box tooltip
         $('.jtv_wrapper > .chat > .reloadbtn', @el).tipsy
@@ -120,6 +129,42 @@ class Display
                 scale with it
                 """
         
+        # Hide least important elements as the window space is reduced
+        initial_resize = true # For the initial resize, don't use animations
+        ltbox_hidden = false
+        header_right_hidden = false
+
+        $(window).resize (e)->
+            width = $(window).width()
+            anim_duration = if initial_resize then 0 else 100
+
+            ltbox = $('.header > .stream-title', self.el)
+            ltbox_width = 1050
+
+            header_right = $('.header > .viewers, .header > .featured')
+            header_right_width = 720
+
+            # The live title should only be shown if the window is > 1050px
+            if width <= ltbox_width and !ltbox_hidden
+                ltbox.stop().animate {opacity: 0}, anim_duration
+                ltbox_hidden = true
+            else if width > ltbox_width and ltbox_hidden
+                ltbox.stop().animate {opacity: 1}, anim_duration
+                ltbox_hidden = false
+            
+            # The right part of the stream info should be hidden if the window
+            # is
+            if width <= header_right_width and !header_right_hidden
+                header_right.stop().animate {opacity: 0}, anim_duration
+                header_right_hidden = true
+            else if width > header_right_width and header_right_hidden
+                header_right.stop().animate {opacity: 1}, anim_duration
+                header_right_hidden = false
+
+        # Trigger an initial resize for the elements to settle
+        $(window).resize()
+        initial_resize = false
+
         @
 
     # Toggles the stream chat from showing/not showing
@@ -129,18 +174,22 @@ class Display
 
         # Hide if visible
         if @chatVisible
-            console.log 'Display: Hiding stream chat'
             jtv.addClass 'no-chat'
             button.html 'Show chat'
 
             dataloader.putMemory 'display-chat', false
+
+            # Track the event
+            tracker.event 'StreamChat', 'Hide', @channel
         # Show if hidden
         else
-            console.log 'Display: Showing stream chat'
             jtv.removeClass 'no-chat'
             button.html 'Hide chat'
 
             dataloader.putMemory 'display-chat', true
+
+            # Track the event
+            tracker.event 'StreamChat', 'Show', @channel
         
         @chatVisible = !@chatVisible
 

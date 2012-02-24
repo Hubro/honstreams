@@ -7,6 +7,7 @@ Display = require 'controllers/display'
 dataloader = require 'dataloader'
 hashpath = require 'hashpath'
 config = require 'config'
+tracker = require 'tracker'
 
 # Initiates the honstreams app
 self.init = (selector)->
@@ -65,5 +66,8 @@ self.init = (selector)->
         hashpath.addChangeListener (path)=>
             # Tell the Display to update it's content
             display.processPath path
+
+            # Track the new page view
+            tracker.pageView '/' + path.join '/'
         
         console.log 'Honstreams app is initiated'
