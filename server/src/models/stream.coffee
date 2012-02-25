@@ -6,7 +6,6 @@ config = require '../config'
 mysql = require 'mysql'
 queues = require 'mysql-queues'
 async = require 'async'
-StreamData = require './streamdata'
 require 'colors'
 
 # Declare Stream's fields
