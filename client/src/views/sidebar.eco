@@ -64,6 +64,7 @@
 	<% end %>
 </div>
 
+<!--
 <div class="ad">
 	<script type="text/javascript">
 		google_ad_client = "ca-pub-0127066269960387";
@@ -76,3 +77,4 @@
 		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 	</script>
 </div>
+-->

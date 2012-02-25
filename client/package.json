@@ -1,5 +1,6 @@
 {
-	"name": "Honstreams client",
+	"name": "Honstreams-client",
+    "version": "0.5.0",
 	"dependencies": {
 		"coffee-script": "1.2.x",
 		"colors": "0.6.x",

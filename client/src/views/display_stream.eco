@@ -59,12 +59,18 @@
     </div>
 
     <!-- Chat box -->
-    <div class="chat">
+    <div class="chat<% if @stream.delayed: %> delayed<% end %>">
         <div class="reloadbtn">Reload chat</div>
+        <% if @stream.delayed: %>
+            <div class="delay">
+                This stream is <strong>delayed</strong>!
+            </div>
+        <% end %>
         <div class="wrapper">
             <iframe id="chat_embed" frameborder="0" scrolling="no" 
                 src="http://www.justin.tv/chat/embed?channel=<%=@stream.channel%>&default_chat=jtv">
             </iframe>
         </div>
     </div>
+
 </div>

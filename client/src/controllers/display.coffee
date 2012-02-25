@@ -33,7 +33,7 @@ class Display
         @markdown = converter.makeHtml
 
         # Load settings
-        @chatVisible = dataloader.getMemory 'display-chat', false
+        @chatVisible = dataloader.getMemory 'display-chat', true
     
     # Setter for the streams
     setStreams: (streams)->
@@ -139,10 +139,10 @@ class Display
             anim_duration = if initial_resize then 0 else 100
 
             ltbox = $('.header > .stream-title', self.el)
-            ltbox_width = 1050
+            ltbox_width = 1080
 
             header_right = $('.header > .viewers, .header > .featured')
-            header_right_width = 720
+            header_right_width = 750
 
             # The live title should only be shown if the window is > 1050px
             if width <= ltbox_width and !ltbox_hidden
