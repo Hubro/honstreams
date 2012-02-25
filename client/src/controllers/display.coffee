@@ -84,6 +84,13 @@ class Display
 
             If you have any feature requests or complaints please contact me on
             <tomas@honstreams.com>
+
+            ## Important note
+
+            I might roll out updates to this application as often as a few times
+            per day. In other words, if you can't load the application all of a
+            sudden, chances are I've taking it down to run a git pull. In that
+            situation please wait a few minutes and try again :-)
         """
 
         @el.html display_page_view content: @markdown pagetext
