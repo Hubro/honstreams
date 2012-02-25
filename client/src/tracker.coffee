@@ -1,11 +1,10 @@
 config = require 'config'
 
 tracker = exports
-window._gaq = _gaq = []
+window._gaq = []
 
 if config.ga_tracking_code
-    console.log 'Setting tracking account'
-    _gaq.push ['_setAccount', 'UA-26013152-2']
+    window._gaq.push ['_setAccount', 'UA-26013152-2']
 
     $ ->
         `
@@ -21,9 +20,7 @@ else
     console.warn 'No Google analytics tracking code found in config'
 
 tracker.pageView = (path)->
-    console.log 'Tracking pageview: ' + path
-    _gaq.push ['_trackPageview', path]
+    window._gaq.push ['_trackPageview', path]
 
 tracker.event = (cat, action, label)->
-    console.log "Tracking event: #{cat}, #{action}, #{label}"
-    _gaq.push ['_trackEvent', cat, action, label]
+    window._gaq.push ['_trackEvent', cat, action, label]
