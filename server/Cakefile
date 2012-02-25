@@ -40,13 +40,16 @@ task 'updateloop', 'Runs updatestreams once per minute', ->
     Stream = require './src/models/stream'
     
     update = ->
-        justintv.fetchLiveStreams (streams)->
-            # streams can be null
-            if !streams then return
+        try
+            justintv.fetchLiveStreams (streams)->
+                # streams can be null
+                if !streams then return
 
-            # If not, run the update
-            Stream.updateAllFromRaw streams, ->
-                console.log 'Waiting 60 seconds for the next update'.magenta
+                # If not, run the update
+                Stream.updateAllFromRaw streams, ->
+                    console.log 'Waiting 60 seconds for the next update'.magenta
+        catch error
+            process.stderr.write 'An error occurred: ' + String(error) + '\n'
     
     update()
 
