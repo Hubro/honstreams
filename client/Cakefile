@@ -109,6 +109,10 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
     exec 'rm -r honsapp.js honsapp.css', {cwd:__dirname}, ->
         try fs.mkdirSync __dirname + '/lib'
 
-        stitch -> cStylus ->
-            console.log 'Built to honsapp.js and honsapp.css'[build_color]
-            console.log 'JS was minified'[build_color] if options.minify
+        try
+            stitch -> cStylus ->
+                console.log 'Built to honsapp.js and honsapp.css'[build_color]
+                console.log 'JS was minified'[build_color] if options.minify
+        catch error
+            console.error 'Build failed: ' + String(error)
+            console.error 'Waiting for new changes'
