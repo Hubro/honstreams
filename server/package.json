@@ -1,17 +1,17 @@
 {
-	"name": "honstreams.server",
-	"version": "0.0.0",
+	"name": "honstreams-server",
+	"version": "0.5.0",
 	"author": "Tomas E. Sandven <tomas191191@gmail.com>",
 	"description": "The server side of honstreams.com",
 
 	"dependencies": {
-		"express": "2.5.x",
-		"sequelize": "1.3.x",
-		"mysql": "0.9.x",
-		"mysql-queues": "0.3.x",
-		"oauth": "0.9.x",
-		"async": "0.1.x",
-		"optimist": "0.3.x",
-		"colors": "0.6.x"
+		"express": "2.5.5",
+		"sequelize": "1.3.0",
+		"mysql": "0.9.5",
+		"mysql-queues": "0.3.3",
+		"oauth": "0.9.5",
+		"async": "0.1.15",
+		"optimist": "0.3.1",
+		"colors": "0.6.0-1"
 	}
 }
