@@ -107,11 +107,10 @@ Stream_attr =
         updateAllFromRaw: (rawdata, callback)->
 
             # Create a MySQL connection
-            m = config.mysql
             con = mysql.createClient
-                user: m.username
-                password: m.password
-                database: m.database
+                user: config.mysql_username
+                password: config.mysql_password
+                database: config.mysql_database
 
             # Start a transaction
             queues con, false

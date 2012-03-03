@@ -8,12 +8,14 @@ all = (server)->
 
 # Run this when developing
 development = (server)->
+	console.log 'Using development environment configuration'
 	server.use express.errorHandler
 		dumpExceptions: true
 		showStack: true
 
 # Run this when developing
 production = (server)->
+	console.log 'Using production environment configuration'
 	server.use express.errorHandler {}
 
 # Export function for setting config

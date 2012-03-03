@@ -15,6 +15,44 @@ task 'devserver', 'Run the server using nodemon', ->
     nodemon.on 'exit', (code)->
         console.log "Nodemon exited with code #{code}"
 
+# Task for running the server in a production environment
+task 'server', 'Run the server using forever - For production environments', ->
+    forever = require 'forever'
+    config = require './src/config'
+    fs = require 'fs'
+
+    cwd = __dirname
+    env = process.env
+
+    # Try to make the var dir
+    try fs.mkdirSync __dirname + '/var'
+
+    # Set production env
+    process.env.NODE_ENV = 'production'
+
+    # Create the forever child
+    serverChild = forever.start ['coffee', 'src/server.coffee'],
+        cwd: cwd
+        env: env
+        pidFile: cwd + '/var/server.pid'
+        logFile: cwd + '/var/server_forever.log'
+        outFile: cwd + '/var/server_out.log'
+        errFile: cwd + '/var/server_err.log'
+    
+    updloopChild = forever.start ['cake', 'updateloop'],
+        cwd: cwd
+        env: env
+        pidFile: cwd + '/var/upd.pid'
+        logFile: cwd + '/var/upd_forever.log'
+        outFile: cwd + '/var/upd_out.log'
+        errFile: cwd + '/var/upd_err.log'
+    
+    # Show in forever list
+    forever.startServer serverChild
+    forever.startServer updloopChild
+
+    console.log 'Production server running on port ' + config.port
+
 task 'build', 'Builds the project into JavaSript (./lib)', ->
     console.log 'Building...'
     exec 'coffee -co lib src', (err, stdout, stderr)->
@@ -43,13 +81,15 @@ task 'updateloop', 'Runs updatestreams once per minute', ->
         try
             justintv.fetchLiveStreams (streams)->
                 # streams can be null
-                if !streams then return
+                if !streams
+                    console.warn "Couldn't fetch streams".yellow
 
                 # If not, run the update
                 Stream.updateAllFromRaw streams, ->
                     console.log 'Waiting 60 seconds for the next update'.magenta
-        catch error
-            process.stderr.write 'An error occurred: ' + String(error) + '\n'
+        catch err
+            console.error ('An error occurred: ' + String(err)).red
+            console.log err
     
     update()
 

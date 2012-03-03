@@ -4,3 +4,14 @@ node_modules/
 # Ignore lib directories since it only contains the compiled version of the src/
 # directories anyway
 lib/
+
+# Ignore all logs
+error.log
+server.log
+nohup.out
+
+# Ignore var folder
+var/
+
+# Ignore the config file
+config.json
