@@ -98,7 +98,7 @@ Stream_fields =
     
 # Stream model attributes
 Stream_attr =
-    # User underscores instead of camelcase in MySQL
+    # Use underscores instead of camelcase in MySQL
     underscored: true
 
     # Static methods
