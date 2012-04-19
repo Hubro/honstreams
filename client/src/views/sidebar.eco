@@ -6,26 +6,33 @@
 </div>
 
 <div class="streams-info">
-	<div class="refresh-countdown">
-		Refresh timer: <span>60</span>
-	</div>
-	<div class="stream-count">
-		<% if !@streams: %>
-			No streams live at the moment
-		<% else: %>
-			Live streams: <span><%= @streams.length %></span>
-		<% end %>
-	</div>
+	<% if !@streams: %>
+		<div class="loading">
+			Loading streams
+		</div>
+	<% else: %>
+		<div class="refresh-countdown">
+			Refresh timer: <span>...</span>
+		</div>
+		<div class="stream-count">
+			<% if @streams.length == 0: %>
+				No streams live at the moment
+			<% else: %>
+				Live streams: <span><%= @streams.length %></span>
+			<% end %>
+		</div>
+	<% end %>
 </div>
 
 <div class="streams">
 	<% if !@streams: %>
-		<div class="message">>
-			Waiting for streams to load...
+		<div class="loading">
+			<img src="images/loading.gif" alt="loading" />
 		</div>
 	<% else if @streams.length == 0: %>
 		<div class="message">
-			No streams are live at the moment, sorry
+			Well that's odd... There are actually no streams live at the moment.
+			I'm sure there'll be a few in a moment though!
 		</div>
 	<% else: %>
 		<!-- Scrollbar tags -->
@@ -64,17 +71,16 @@
 	<% end %>
 </div>
 
-<!--
 <div class="ad">
-	<script type="text/javascript">
-		google_ad_client = "ca-pub-0127066269960387";
-		/* Honstreams 3.0 sidebar bottom ad */
-		google_ad_slot = "0776219827";
-		google_ad_width = 234;
-		google_ad_height = 60;
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-0127066269960387";
+	/* Honstreams 3.0 sidebar ad */
+	google_ad_slot = "1369128332";
+	google_ad_width = 234;
+	google_ad_height = 60;
+	//-->
 	</script>
 	<script type="text/javascript"
-		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+	src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 	</script>
 </div>
--->

@@ -3,12 +3,13 @@
 	left 0
 	top 0
 	bottom 0
-	width sidebar_size - 3px
+	width sidebar_size - 1px
 
 	overflow hidden
 
 	background-color #666
-	border-right 3px solid #000
+	td_gradient(#898989, #565656)
+	border-right 1px solid #000
 
 	> .header
 		position relative
@@ -19,6 +20,8 @@
 		td_gradient(#343434, #010101)
 
 		color #fff
+
+		border-bottom 1px solid black
 
 		&:hover
 			background-color #222
@@ -33,10 +36,10 @@
 		
 		> .link
 			position absolute
-			top 12px
+			top 13px
 			left 60px
 
-			font-size 1.8em
+			font-size 1.6em
 			font-family h1_font_face
 			text-shadow 2px 2px 4px rgba(0, 0, 0, 0.5)
 	
@@ -47,20 +50,34 @@
 		background-color #888
 		td_gradient(#abcdef - #333333, #abcdef - #555555)
 
-		border-top 1px solid black
+		border-bottom 1px solid black
 
 		color #000
 		text-shadow 1px 1px 0px rgba(255, 255, 255, 0.2)
+
+		// Style for when streams are still loading
+		.loading
+			padding-top 5px
+			text-align center
+			font-size 1.5em
 			
 	> .streams
 		position absolute
 		top 90px
 		left 0px
-		// bottom 63px
-		bottom 0px
+		bottom sidebar_ad_height
 		width sidebar_size
 
-		border-bottom 3px solid black
+		border-bottom 1px solid black
+
+		.loading
+			img
+				display block
+				margin 40px auto
+
+		.message
+			padding 10px
+			text-shadow 1px 1px 1px rgba(255, 255, 255, 0.3)
 
 		.stream
 			position relative
@@ -155,4 +172,7 @@
 		right 0px
 		bottom 0px
 		left 0px
-		height 60px
+		height sidebar_ad_height
+
+		background-color #000
+		td_gradient(#000, #111)
