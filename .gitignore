@@ -13,5 +13,8 @@ nohup.out
 # Ignore var folder
 var/
 
-# Ignore the config file
-config.json
+# Ignore the server config file
+/server/config.json
+
+# Ignore the client config file
+client/public/config.json

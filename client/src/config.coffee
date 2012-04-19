@@ -19,7 +19,7 @@ module.exports = config =
 
 # Fetch custom configuration
 $.ajax
-    url: 'honsapp.json'
+    url: 'config.json'
     async: false
     complete: (e)->
         # Check if the config file was loaded successfully
