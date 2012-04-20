@@ -108,6 +108,7 @@ Stream_attr =
 
             # Create a MySQL connection
             con = mysql.createClient
+                host: config.mysql_host
                 user: config.mysql_username
                 password: config.mysql_password
                 database: config.mysql_database
