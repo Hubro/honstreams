@@ -32,15 +32,23 @@ self.fetchLiveStreams = (callback)->
 
 # Get the memory from cookie. fallback overrides undefined
 self.getMemory = (name, fallback)->
+    console.log "Getting memory: #{name}, #{value}"
     memory = self.getMemories()
 
     if memory
-        value = memory[name] or fallback
+        if typeof memory[name] != 'undefined'
+            value = memory[name]
+        else if typeof fallback != 'undefined'
+            value = fallback
+        else
+            value = null
+
         return value
     else return fallback
 
 # Save a memory in a cookie
 self.putMemory = (name, value)->
+    console.log "Putting memory: #{name}, #{value}"
     # Fetch or create the memory
     memory = self.getMemories()
     if !memory then memory = {}
