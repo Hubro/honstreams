@@ -19,6 +19,8 @@ task 'clean', 'Remove all files and directories made by build', ->
 task 'watch', 'Watch source and css directories for changed', ->
     console.log 'Watching ./src and ./css...'
 
+    invoke 'build'
+
     nodewatch = require 'nodewatch'
     nodewatch
     .add('./src', true)

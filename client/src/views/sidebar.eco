@@ -46,7 +46,7 @@
 							<div class="stream">
 								<input type="hidden" name="index" value="<%= i %>" />
 								<div class="image" style="background-image: url('<%= stream.screen_cap_small %>');"></div>
-								<div class="title"><%= stream.title %></div>
+								<div class="title"><%= stream.custom_name or stream.title %></div>
 								<div class="viewers">
 									<%= stream.viewers %>
 									<% if stream.viewers == 1: %>
