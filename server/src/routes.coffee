@@ -36,6 +36,8 @@ live_streams = (req, res)->
 		res.end JSON.stringify data
 
 competitive_monitor = (req, res)->
+	res.setHeader 'Content-Type', 'text/html; charset=UTF-8'
+
 	Stream = require './models/stream'
 	Stream.fetchWithPersistentData 'competitive=1', (err, data)->
 		res.write """
