@@ -203,8 +203,8 @@ Stream_attr =
             if filter_string
                 query += "\nWHERE #{filter_string}"
 
-            # Order by viewers
-            query += "\nORDER BY viewers DESC;"
+            # Order by live, then viewers
+            query += "\nORDER BY live DESC, viewers DESC;"
 
             # Run the query and pass the returned data to the callback
             con.query query, (err, data)->
