@@ -6,6 +6,7 @@ config = require '../config'
 mysql = require 'mysql'
 queues = require 'mysql-queues'
 async = require 'async'
+_ = require 'underscore'
 require 'colors'
 
 # Declare Stream's fields
@@ -106,6 +107,11 @@ Stream_attr =
         # Perform a full update of the Stream database
         updateAllFromRaw: (rawdata, callback)->
 
+            # Validate the input
+            if !_.isArray rawdata
+                callback 'Invalid input type for arg1: ' + typeof rawdata
+                return
+
             # Create a MySQL connection
             con = mysql.createClient
                 host: config.mysql_host
@@ -118,13 +124,13 @@ Stream_attr =
             trans = con.startTransaction()
 
             # First set all streams to offline
-            console.log 'Removing all existing streams'.yellow
-            # trans.query 'UPDATE `Streams` SET live=0;'
-            trans.query 'TRUNCATE `Streams`;'
+            console.log 'Setting all existing streams to offline'.yellow
+            trans.query 'UPDATE `Streams` SET live=0;'
+            # trans.query 'TRUNCATE `Streams`;'
 
             # Update each stream
             for rawstream in rawdata
-                console.log 'Inserting ' + rawstream.channel.login
+                console.log 'Inserting/replacing ' + rawstream.channel.login
 
                 query = """
                     REPLACE INTO `Streams`
@@ -156,12 +162,54 @@ Stream_attr =
                     if err
                         trans.rollback()
                         throw err
-            
+
             trans.commit ->
                 con.end()
                 callback?()
 
             return
+
+        # Fetch all streams from the database, including persistent data. The
+        # callback is returned with arguments error and data. Error is false
+        # unless an error occurred.
+        fetchWithPersistentData: (filter_string, callback)->
+
+            # If only a callback was passed
+            if typeof filter_string == 'function'
+                callback = filter_string
+                filter_string = null
+
+            # Create a MySQL connection
+            con = mysql.createClient
+                host: config.mysql_host
+                user: config.mysql_username
+                password: config.mysql_password
+                database: config.mysql_database
+
+            # Ready the query
+            query = """
+                SELECT 
+                    Streams . *,
+                    StreamsPD.custom_name,
+                    StreamsPD.competitive,
+                    StreamsPD.sponsored
+                FROM
+                    Streams
+                        LEFT JOIN
+                    StreamsPD ON Streams.channel = StreamsPD.channel
+            """
+
+            # Was there a filter string?
+            if filter_string
+                query += "\nWHERE #{filter_string}"
+
+            # Order by viewers
+            query += "\nORDER BY viewers DESC;"
+
+            # Run the query and pass the returned data to the callback
+            con.query query, (err, data)->
+                con.end()
+                callback err, data
 
     # Methods on the Stream instance
     instanceMethods:
