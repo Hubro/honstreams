@@ -22,17 +22,22 @@ live_streams = (req, res)->
 
 	Stream = require './models/stream'
 
-	Stream.findAll(where: live: true)
-	.success (result)->
-		res.end JSON.stringify result
-	.error (msg)->
-		res.end msg
-		debugger
+	Stream.fetchWithPersistentData 'live = 1', (err, data)->
+		# Format an error response on error
+		if err
+			response = 
+				error: "A database error has occurred"
+				message: err
+
+			res.end JSON.stringify response
+			return
+
+		# Otherwise return the data
+		res.end JSON.stringify data
 
 competitive_monitor = (req, res)->
 	Stream = require './models/stream'
-	Stream.findAll(where: live: true)
-	.success (result)->
+	Stream.fetchWithPersistentData 'competitive=1', (err, data)->
 		res.write """
 			<!DOCTYPE html>
 			<html>
@@ -65,7 +70,7 @@ competitive_monitor = (req, res)->
 				<body><!--
 		"""
 
-		for stream in result
+		for stream in data
 			if stream.live
 				statusText =
 					"<span class=\"live\">Live (#{stream.viewers})</span>"
@@ -75,7 +80,7 @@ competitive_monitor = (req, res)->
 			res.write """
 				--><a href="http://www.twitch.tv/#{stream.channel}"><!--
 					--><div class="stream">
-						<h1>#{stream.title}</h1>
+						<h1>#{stream.custom_name or stream.title}</h1>
 						#{statusText}
 					</div><!--
 				--></a><!--
