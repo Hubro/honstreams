@@ -52,6 +52,27 @@ competitive_monitor = (req, res)->
 							font-family: "Verdana", "Trebuchet", "Helvetica"; 
 							font-size: 12px;
 						}
+						footer {
+							position: absolute;
+							right: 0px;
+							bottom: 5px;
+							left: 0px;
+							text-align: center;
+						}
+						footer a {
+							display: inline-block;
+							padding: 3px;
+							margin: 1px;
+							text-decoration: underline;
+
+							/*
+							border: 1px solid rgba(255, 255, 255, 0.3);
+							border-radius: 2px;
+							*/
+						}
+						footer a:hover {
+							color: #4f4;
+						}
 						h1 { margin: 0; font-size: 1.25em; }
 						a { color: inherit; text-decoration: inherit; }
 						.stream { 
@@ -89,7 +110,13 @@ competitive_monitor = (req, res)->
 			"""
 	
 		res.end """
-				--></body>
+				-->
+
+					<footer>
+						Courtesy of <a href="http://honstreams.com" target="new">
+						honstreams.com</a>
+					</footer>
+				</body>
 			</html>
 		"""
 		
