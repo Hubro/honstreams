@@ -79,18 +79,24 @@ class Display
         pagetext = """
             # Welcome to Honstreams.com!
 
-            This is an early beta version of Honstreams 3.0 so don't expect
-            every feature to work perfectly in every scenario imaginable.
-
-            If you have any feature requests or complaints please contact me on
-            <tomas@honstreams.com>
-
-            ## Important note regarding this beta
-
-            I might roll out updates to this application as often as a few times
-            per day. In other words, if you can't load the application all of a
-            sudden, chances are I've taken it down to run a git pull. In that
-            case please wait a few minutes and try again.
+            Honstreams is a free service aiming to give it's users a sleek,
+            feature rich and responsive interface for enjoying Heroes of Newerth
+            live stream content.
+            
+            If you have comments, good or bad, feel free to contact me at
+            <tomas@honstreams.com>, [facebook.com/honstreams][0] or
+            [twitter.com/#!/Honstreams][1]
+            
+            I will also Tweet and update the Facebook page any time I'm doing an
+            update or otherwise expecting downtime, as well as when anything
+            interesting and relevant to Honstreams occurs.
+            
+            Enjoy!
+            
+            ~ Codemonkey
+            
+            [0]:  https://www.facebook.com/Honstreams
+            [1]:  https://twitter.com/#!/Honstreams
         """
 
         @el.html display_page_view content: @markdown pagetext
