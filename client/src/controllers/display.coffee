@@ -94,6 +94,13 @@ class Display
             Enjoy!
             
             ~ Codemonkey
+
+            ## Ads
+
+            I've added a small ad at the bottom left corner of Honstreams to
+            alleviate the cost of hosting it. It shouldn't interfere with stream
+            viewing in any way, and most of you won't even see it. If it turns
+            out to be a pain, let me know and I'll have it removed.
             
             [0]:  https://www.facebook.com/Honstreams
             [1]:  https://twitter.com/#!/Honstreams
