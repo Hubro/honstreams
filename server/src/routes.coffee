@@ -136,23 +136,28 @@ competitive_monitor = (req, res)->
 sidebar_ad = (req, res)->
 	res.setHeader 'Content-Type', 'text/html; charset=UTF-8'
 	res.end """
-		<style>
-			body{margin:0px;}
-		</style>
-		<script type="text/javascript">
-		ch_client = "codemonkey";
-		ch_width = 250;
-		ch_height = 250;
-		ch_type = "mpu";
-		ch_sid = "Honstreams";
-		ch_color_site_link = "ABCDEF";
-		ch_color_title = "ABCDEF";
-		ch_color_border = "000000";
-		ch_color_text = "AAAAAA";
-		ch_color_bg = "000000";
-		</script>
-		<script src="http://scripts.chitika.net/eminimalls/amm.js" type="text/javascript">
-		</script>
+		<html>
+			<head>
+				<title>Honstreams</title>
+				<style>body{margin:0px;}</style>
+			</head>
+			<body>
+				<script type="text/javascript">
+				ch_client = "codemonkey";
+				ch_width = 250;
+				ch_height = 250;
+				ch_type = "mpu";
+				ch_sid = "Honstreams";
+				ch_color_site_link = "ABCDEF";
+				ch_color_title = "ABCDEF";
+				ch_color_border = "000000";
+				ch_color_text = "AAAAAA";
+				ch_color_bg = "000000";
+				</script>
+				<script src="http://scripts.chitika.net/eminimalls/amm.js" type="text/javascript">
+				</script>
+			</body>
+		</html>
 	"""
 		
 # Function for applying all the views to a express server instance
