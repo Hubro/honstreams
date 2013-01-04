@@ -45,7 +45,7 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
 
         stitch = require 'stitch'
 
-        package = stitch.createPackage
+        pkg = stitch.createPackage
             paths: ['src']
             dependencies: [
                 'vendor/jquery.min.js'
@@ -66,7 +66,7 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
             ]
         
         # Stitch lib and write to file
-        package.compile (err, source)->
+        pkg.compile (err, source)->
             throw err if err
 
             source = """
