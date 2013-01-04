@@ -132,6 +132,28 @@ competitive_monitor = (req, res)->
 				</body>
 			</html>
 		"""
+
+sidebar_ad = (req, res)->
+	res.setHeader 'Content-Type', 'text/html; charset=UTF-8'
+	res.end """
+		<style>
+			body{margin:0px;}
+		</style>
+		<script type="text/javascript">
+		ch_client = "codemonkey";
+		ch_width = 250;
+		ch_height = 250;
+		ch_type = "mpu";
+		ch_sid = "Honstreams";
+		ch_color_site_link = "ABCDEF";
+		ch_color_title = "ABCDEF";
+		ch_color_border = "000000";
+		ch_color_text = "AAAAAA";
+		ch_color_bg = "000000";
+		</script>
+		<script src="http://scripts.chitika.net/eminimalls/amm.js" type="text/javascript">
+		</script>
+	"""
 		
 # Function for applying all the views to a express server instance
 exports.apply = (server)->
@@ -139,3 +161,4 @@ exports.apply = (server)->
 	server.all '/streams', streams
 	server.all '/live_streams', live_streams
 	server.all '/competitive_monitor', competitive_monitor
+	server.all '/sidebar_ad', sidebar_ad
