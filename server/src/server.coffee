@@ -7,7 +7,7 @@ serverconfig = require './serverconfig'
 routes = require './routes'
 
 # Create hons server
-hons_server = express.createServer()
+hons_server = express()
 
 # Listen to errors
 hons_server.on 'error', (err)->

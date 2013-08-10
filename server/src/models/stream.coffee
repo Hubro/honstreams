@@ -20,7 +20,7 @@ Stream_fields =
         type: Sequelize.INTEGER
         primaryKey: true
         autoIncrement: true
-    
+
     # This is the channel name of the stream, e.g. "thethrill"
     channel:
         type: Sequelize.STRING
@@ -28,27 +28,27 @@ Stream_fields =
         allowNull: false
         validate:
             notEmpty: true
-    
+
     #
     # Textual stream data
     #
-    
+
     # This is the displayed name of the stream, e.g. "Phil the Thrill"
     title:
         type: Sequelize.STRING
         allowNull: false
         validate:
             notEmpty: true
-    
+
     # The stream's current title, e.g. "Playin some 1900+ hon"
     live_title:
         type: Sequelize.STRING
         allowNull: true
-    
+
     #
     # Links
     #
-    
+
     screen_cap_small:
         type: Sequelize.STRING
         allowNull: false
@@ -65,23 +65,23 @@ Stream_fields =
     live:
         type: Sequelize.BOOLEAN
         allowNull: false
-    
+
     # The amount of viewers that are watching this stream right now
     viewers:
         type: Sequelize.INTEGER
         allowNull: false
-    
+
     # The amount of viewers that are watching this stream right now via an embed
     # object
     embed_viewers:
         type: Sequelize.INTEGER
         allowNull: false
-    
+
     # Can this stream be embedded?
     embed_enabled:
         type: Sequelize.BOOLEAN
         allowNull: false
-    
+
     # Is this stream featured on justin.tv?
     featured:
         type: Sequelize.BOOLEAN
@@ -91,12 +91,12 @@ Stream_fields =
     delayed:
         type: Sequelize.BOOLEAN
         allowNull: false
-    
+
     # Records when a stream was live last
     live_at:
         type: Sequelize.DATE
         allowNull: false
-    
+
 # Stream model attributes
 Stream_attr =
     # Use underscores instead of camelcase in MySQL
@@ -113,7 +113,7 @@ Stream_attr =
                 return
 
             # Create a MySQL connection
-            con = mysql.createClient
+            con = mysql.createConnection
                 host: config.mysql_host
                 user: config.mysql_username
                 password: config.mysql_password
@@ -180,7 +180,7 @@ Stream_attr =
                 filter_string = null
 
             # Create a MySQL connection
-            con = mysql.createClient
+            con = mysql.createConnection
                 host: config.mysql_host
                 user: config.mysql_username
                 password: config.mysql_password
@@ -188,7 +188,7 @@ Stream_attr =
 
             # Ready the query
             query = """
-                SELECT 
+                SELECT
                     Streams . *,
                     StreamsPD.custom_name,
                     StreamsPD.competitive,
@@ -218,9 +218,9 @@ Stream_attr =
 
             for attr in this.attributes
                 rawstream[attr] = this[attr]
-            
+
             return rawstream
-        
+
         getStreamData: (callback)->
             return
 
