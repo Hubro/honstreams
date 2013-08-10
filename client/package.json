@@ -2,11 +2,11 @@
 	"name": "Honstreams-client",
     "version": "0.5.0",
 	"dependencies": {
-		"coffee-script": "1.2.x",
+		"coffee-script": "1.6.x",
 		"colors": "0.6.x",
 		"eco": "1.1.x",
 		"stitch": "0.3.x",
-		"stylus": "0.22.x",
-		"nodewatch": "0.1.x"
+		"stylus": "0.36.x",
+		"nodewatch": "0.3.x"
 	}
 }
