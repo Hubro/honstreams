@@ -10,7 +10,7 @@ class Display
 
     # Static factory function
     @create: -> return new Display()
-    
+
     # Members
     defaultPath: ['pages', 'home']
     streams: null
@@ -34,7 +34,7 @@ class Display
 
         # Load settings
         @chatVisible = dataloader.getMemory 'display-chat', true
-    
+
     # Setter for the streams
     setStreams: (streams)->
         @streams = streams
@@ -43,7 +43,7 @@ class Display
     processPath: (path)->
         if !path.length
             return hashpath.setPath @defaultPath
-        
+
         if path[0] == "pages"
             @displayPage path[1]
 
@@ -63,7 +63,7 @@ class Display
             if e.channel == channel
                 stream = e
                 return false
-        
+
         # If yes, display it. Otherwise alert the user of the error
         if stream
             @el.html display_stream_view
@@ -71,30 +71,44 @@ class Display
                 showChat: @chatVisible
         else
             @el.html 'STREAM NOT FOUND'
-        
+
         @setupEvents()
-    
+
     # Takes a page path and displays it using markdown
     displayPage: (page)->
         pagetext = """
             # Welcome to Honstreams.com!
 
-            This is an early beta version of Honstreams 3.0 so don't expect
-            every feature to work perfectly in every scenario imaginable.
+            Honstreams is a free service aiming to give it's users a sleek,
+            feature rich and responsive interface for enjoying Heroes of Newerth
+            live stream content.
 
-            If you have any feature requests or complaints please contact me on
-            <tomas@honstreams.com>
+            If you have comments, good or bad, feel free to contact me at
+            <tomas@honstreams.com>, [facebook.com/honstreams][0] or
+            [twitter.com/#!/Honstreams][1]
 
-            ## Important note regarding this beta
+            I will also Tweet and update the Facebook page any time I'm doing an
+            update or otherwise expecting downtime, as well as when anything
+            interesting and relevant to Honstreams occurs.
 
-            I might roll out updates to this application as often as a few times
-            per day. In other words, if you can't load the application all of a
-            sudden, chances are I've taken it down to run a git pull. In that
-            case please wait a few minutes and try again.
+            Enjoy!
+
+            ~ Codemonkey
+
+            ---
+
+            ### Update 2013-08-10
+
+            I have increased the width of the chat box in order to remove the
+            width-related warning message. I have also removed the ad spot from
+            the stream list.
+
+            [0]:  https://www.facebook.com/Honstreams
+            [1]:  https://twitter.com/#!/Honstreams
         """
 
         @el.html display_page_view content: @markdown pagetext
-    
+
     setupEvents: ->
         self = @
 
@@ -104,7 +118,7 @@ class Display
 
             # Track the event
             tracker.event 'ChatToggleButton', 'Click', self.channel
-        
+
         # Stream toolbar button "Visit stream page"
         $('#visit_stream_page', @el).click ->
             window.open "http://twitch.tv/#{self.channel}"
@@ -123,7 +137,7 @@ class Display
 
             # Track the event
             tracker.event 'ChatReloadButton', 'Click', self.channel
-        
+
         # Chat reload box tooltip
         $('.jtv_wrapper > .chat > .reloadbtn', @el).tipsy
             gravity: 's'
@@ -135,7 +149,7 @@ class Display
                 after you resize the browser window since the chat box won't
                 scale with it
                 """
-        
+
         # Hide least important elements as the window space is reduced
         initial_resize = true # For the initial resize, don't use animations
         ltbox_hidden = false
@@ -158,7 +172,7 @@ class Display
             else if width > ltbox_width and ltbox_hidden
                 ltbox.stop().animate {opacity: 1}, anim_duration
                 ltbox_hidden = false
-            
+
             # The right part of the stream info should be hidden if the window
             # is
             if width <= header_right_width and !header_right_hidden
@@ -197,7 +211,7 @@ class Display
 
             # Track the event
             tracker.event 'StreamChat', 'Show', @channel
-        
+
         @chatVisible = !@chatVisible
 
 module.exports = Display
