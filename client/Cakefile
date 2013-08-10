@@ -45,7 +45,7 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
 
         stitch = require 'stitch'
 
-        package = stitch.createPackage
+        pkg = stitch.createPackage
             paths: ['src']
             dependencies: [
                 'vendor/jquery.min.js'
@@ -64,9 +64,9 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
                 # Markdown parser
                 'vendor/showdown.js'
             ]
-        
+
         # Stitch lib and write to file
-        package.compile (err, source)->
+        pkg.compile (err, source)->
             throw err if err
 
             source = """
@@ -89,10 +89,10 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
              **/
             #{source}
             """
-            
+
             fs.writeFileSync build_to_js, source, 'UTF-8'
             cb()
-    
+
     cStylus = (cb)->
         console.log 'Compiling stylus...'[build_color]
 
@@ -100,7 +100,7 @@ task 'build', 'Compile the client into honsapp.js and honsapp.css', (options)->
         indexStyl = fs.readFileSync build_from_styl + '/' + 'index.styl'
 
         # Render css and write file
-        stylus.render indexStyl.toString(), {paths: [build_from_styl]}, 
+        stylus.render indexStyl.toString(), {paths: [build_from_styl]},
             (err, css)->
                 throw err if err
                 fs.writeFileSync build_to_css, css, 'UTF-8'
