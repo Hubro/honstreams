@@ -6,8 +6,7 @@ node_modules/
 lib/
 
 # Ignore all logs
-error.log
-server.log
+*.log
 nohup.out
 
 # Ignore var folder
@@ -18,3 +17,6 @@ var/
 
 # Ignore the client config file
 client/public/config.json
+
+# Ignore Sublime Text workspace file
+*.sublime-workspace
