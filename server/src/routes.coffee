@@ -2,7 +2,7 @@
 #index = (req, res)->
 #	res.contentType 'text/html'
 #
-#	
+#
 # View for retrieving all streams in json format
 streams = (req, res)->
 	res.contentType 'application/json'
@@ -25,7 +25,7 @@ live_streams = (req, res)->
 	Stream.fetchWithPersistentData 'live = 1', (err, data)->
 		# Format an error response on error
 		if err
-			response = 
+			response =
 				error: "A database error has occurred"
 				message: err
 
@@ -46,10 +46,10 @@ competitive_monitor = (req, res)->
 				<head>
 					<title>Honstreams competitive streams monitor</title>
 					<style>
-						body { 
-							background-color: black; 
+						body {
+							background-color: black;
 							color: white;
-							font-family: "Verdana", "Trebuchet", "Helvetica"; 
+							font-family: "Verdana", "Trebuchet", "Helvetica";
 							font-size: 12px;
 						}
 						footer {
@@ -73,10 +73,9 @@ competitive_monitor = (req, res)->
 						footer a:hover {
 							color: #4f4;
 						}
-						h1 { margin: 0; font-size: 1.25em; }
 						a { color: inherit; text-decoration: inherit; }
-						.stream { 
-							display: inline-block; 
+						.stream {
+							display: inline-block;
 							margin: 3px;
 							padding: 3px;
 							border: 1px solid rgba(255, 255, 255, 0.3);
@@ -85,30 +84,40 @@ competitive_monitor = (req, res)->
 						}
 						.stream:hover {
 							border-color: rgba(255, 255, 255, 0.5);
+							background-color: #111111;
 						}
-						.live { color: #4f4; }
-						.offline { color: #f44; }
+						.stream h1 {
+							margin: 0;
+							font-size: 1em;
+							color: #f44;
+						}
+						.stream.live h1 {
+							margin: 0;
+							font-size: 1.4em;
+							color: #4f4;
+						}
 					</style>
 				</head>
 				<body><!--
 		"""
 
 		for stream in data
+			stream_title = stream.custom_name or stream.title
+
 			if stream.live
-				statusText =
-					"<span class=\"live\">Live (#{stream.viewers})</span>"
+				stream_title += " (#{stream.viewers})"
+				cls = 'class="stream live"'
 			else
-				statusText = "<span class=\"offline\">Offline</span>"
+				cls = 'class="stream"'
 
 			res.write """
 				--><a href="http://www.twitch.tv/#{stream.channel}"><!--
-					--><div class="stream">
-						<h1>#{stream.custom_name or stream.title}</h1>
-						#{statusText}
+					--><div #{cls}>
+						<h1>#{stream_title}</h1>
 					</div><!--
 				--></a><!--
 			"""
-	
+
 		res.end """
 				-->
 
@@ -119,7 +128,7 @@ competitive_monitor = (req, res)->
 				</body>
 			</html>
 		"""
-		
+
 # Function for applying all the views to a express server instance
 exports.apply = (server)->
 	# server.get '/', index
