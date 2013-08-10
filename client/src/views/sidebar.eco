@@ -71,7 +71,7 @@
 	<% end %>
 </div>
 
-<div class="ad">
+<!-- <div class="ad">
 	<script type="text/javascript"><!--
 	google_ad_client = "ca-pub-0127066269960387";
 	/* Honstreams 3.0 sidebar ad */
@@ -83,4 +83,4 @@
 	<script type="text/javascript"
 	src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 	</script>
-</div>
+</div> -->
