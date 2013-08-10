@@ -66,10 +66,12 @@
                 This stream is <strong>delayed</strong>!
             </div>
         <% end %>
-        <div class="wrapper">
-            <iframe id="chat_embed" frameborder="0" scrolling="no"
-                src="http://www.justin.tv/chat/embed?channel=<%=@stream.channel%>&default_chat=jtv">
-            </iframe>
+        <div class="wrapper_outer">
+            <div class="wrapper_inner">
+                <iframe id="chat_embed" frameborder="0" scrolling="no"
+                    src="http://twitch.tv/chat/embed?channel=<%=@stream.channel%>">
+                </iframe>
+            </div>
         </div>
     </div>
 

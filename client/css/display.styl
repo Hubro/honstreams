@@ -175,12 +175,16 @@
 				&:active
 					box-shadow inset 0px 5px 5px rgba(0, 0, 0, 0.25)
 
-			> .wrapper
+			> .wrapper_outer
 				abspos(50px, 0px, 0px, 0px)
+				background-color white
 
-				> iframe
-					width chatbox_size
-					height 100%
+				> .wrapper_inner
+					abspos(0px, 0px, 5px, 0px)
+
+					> iframe
+						width chatbox_size
+						height 100%
 
 		> .chat.delayed
 			> .delay

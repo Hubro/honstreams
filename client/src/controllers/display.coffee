@@ -128,7 +128,7 @@ class Display
 
         # Chat reload button
         $('.jtv_wrapper > .chat > .reloadbtn', @el).click ->
-            wrapper = $(this).parent().find '.wrapper'
+            wrapper = $(this).parent().find '.wrapper_inner'
             html = wrapper.html()
 
             # Empty the wrapper and reinsert the HTML
