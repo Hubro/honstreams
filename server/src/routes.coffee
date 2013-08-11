@@ -148,4 +148,3 @@ exports.apply = (server)->
 	server.all '/streams', streams
 	server.all '/live_streams', live_streams
 	server.all '/competitive_monitor', competitive_monitor
-	server.all '/sidebar_ad', sidebar_ad
