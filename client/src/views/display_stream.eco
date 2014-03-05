@@ -47,16 +47,21 @@
 
     <!-- Stream embed -->
     <div class="embed">
-        <object type="application/x-shockwave-flash" id="live_embed_player_flash"
-        data="http://www.justin.tv/widgets/live_embed_player.swf?channel=<%=@stream.channel%>&auto_play=true"
-        bgcolor="#000000">
-            <param name="allowFullScreen" value="true" />
-            <param name="allowScriptAccess" value="always" />
-            <param name="allowNetworking" value="all" />
-            <param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" />
-            <param name="flashvars" value="channel=<%=@stream.channel%>&auto_play=true" />
+        <object type="application/x-shockwave-flash"
+                data="http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
+                width="100%"
+                height="100%"
+                id="ember885-flash-player"
+                style="visibility: visible;"
+                bgcolor="#000000">
+            <param name="allowScriptAccess" value="always">
+            <param name="allowFullScreen" value="true">
+            <param name="wmode" value="opaque">
+            <param name="bgcolor" value="000000">
+            <param name="flashvars" value="channel=<%=@stream.channel%>&amp;hide_chat=true&amp;auto_play=true&amp;initCallback=Twitch.player.FlashPlayer2.callbacks.callback0">
         </object>
     </div>
+
 
     <!-- Chat box -->
     <div class="chat<% if @stream.delayed: %> delayed<% end %>">
